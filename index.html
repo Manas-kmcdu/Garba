@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Garba Corridor</title>
 <meta name="description" content="Find a partner or a group for garba nights across Delhi University. Open only to DU students. Presented by unrest.">
-<meta name="theme-color" content="#0C0A14">
+<meta name="theme-color" content="#260A11">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230C0A14'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23FFC94A' opacity='.25'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%23FFE08A'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,14 +13,14 @@
 <style>
 /* Night only, one accent. Layout: a slim notice, a string of warm yellow lights, then a centred hero, three steps, a sign-up card beside its copy, and a quiet app row. */
 :root{
-  --bg:#0C0A14;
-  --surface:#15121F;
-  --fg:#F3EEE4;
-  --mute:#9B94AD;
-  --line:rgba(243,238,228,.14);
+  --bg:#260A11;
+  --surface:#35121C;
+  --fg:#F7EEE4;
+  --mute:#C5A9A6;
+  --line:rgba(247,238,228,.17);
   --accent:#FFC94A;
   --on-accent:#1A1203;
-  --err:#FF8F85;
+  --err:#FFB4A8;
   --display:"Rozha One",Georgia,serif;
   --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"DM Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -31,7 +31,8 @@
 *,*::before,*::after{box-sizing:border-box}
 html{background:var(--bg);scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:transparent;color:var(--fg);font:400 1rem/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(90% 360px at 50% 0,rgba(255,201,74,.08),transparent)}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(90% 360px at 50% 0,rgba(255,201,74,.1),transparent),radial-gradient(130% 100% at 50% 25%,rgba(140,24,40,.38),transparent 70%),radial-gradient(120% 120% at 50% 40%,transparent 55%,rgba(0,0,0,.42))}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.2;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .8 0 0 0 0 .65 1.4 0 0 0 -.62'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),repeating-linear-gradient(0deg,rgba(255,235,210,.02) 0 1px,transparent 1px 4px),repeating-linear-gradient(90deg,rgba(0,0,0,.08) 0 1px,transparent 1px 4px)}
 h1,h2,h3,p{margin:0}
 a{color:inherit}
 ::selection{background:var(--accent);color:var(--on-accent)}
@@ -83,7 +84,7 @@ a{color:inherit}
 .title .y .in{color:var(--accent);animation:slideUp 1.15s cubic-bezier(.16,1,.3,1) both,glow 1.6s ease-out both;animation-delay:var(--t,.2s),calc(var(--t,.2s) + .55s)}
 @keyframes slideUp{from{opacity:0;transform:translateY(105%);filter:blur(8px)}}
 @keyframes glow{from{text-shadow:0 0 0 rgba(255,201,74,0)}to{text-shadow:0 0 32px rgba(255,201,74,.3)}}
-.lede{font-size:clamp(1.05rem,2.2vw,1.25rem);line-height:1.5;max-width:30em}
+.lede{font:400 clamp(1.4rem,3.4vw,2rem)/1.2 var(--display);max-width:30em}
 .note{margin-top:22px;max-width:34em;font-size:.95rem;color:var(--mute)}
 .note b{color:var(--fg)}
 .when{margin-top:40px;display:grid;justify-items:center;gap:16px}
@@ -95,6 +96,10 @@ a{color:inherit}
 .live{display:flex;align-items:center;gap:10px;font:400 clamp(1.3rem,3.4vw,1.7rem)/1.2 var(--display)}
 .live::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
 .cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:36px}
+.tally{margin-top:6px}
+.tally>div{min-width:132px}
+.tally b.pop{animation:pop .6s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{opacity:.4;transform:translateY(-8px);color:var(--accent)}}
 
 /* sections */
 .sec{padding-block:clamp(48px,8vw,96px);border-top:1px solid var(--line)}
@@ -173,7 +178,7 @@ footer b{color:var(--fg)}
 <section class="wrap hero" id="top">
   <p class="lb rise" style="--d:0">Garba nights across Delhi University</p>
   <h1 class="title"><span class="ln"><span class="in" style="--t:.25s">The Garba</span></span><span class="ln y"><span class="in" style="--t:.45s">Corridor</span></span></h1>
-  <p class="lede rise" style="--d:2">Heading to a garba night this Navratri? Tell us who you are and we will pair you with a partner or a group to go with.</p>
+  <p class="lede rise" style="--d:2">Heading to a garba night this Navratri?</p>
   <p class="note rise" style="--d:3"><b>This is not an event.</b> We do not organise any garba night. We only connect DU students who want to go to one together.</p>
 
   <div class="when rise" style="--d:4">
@@ -185,6 +190,10 @@ footer b{color:var(--fg)}
       <div><b data-u="s">00</b><span class="lb">sec</span></div>
     </div>
     <p class="live" id="openNow" hidden>The Corridor is open</p>
+    <div class="cd tally" role="group" aria-label="Sign-ups so far">
+      <div><b id="nBoy">4</b><span class="lb">Boys signed up</span></div>
+      <div><b id="nGirl">7</b><span class="lb">Girls signed up</span></div>
+    </div>
   </div>
 
   <div class="cta rise" style="--d:5">
@@ -308,6 +317,19 @@ var GF = {
   entries: { name: "entry.28033997", college: "entry.1521671643", year: "entry.340797216", instagram: "entry.444350105" }
 };
 
+/* Sign-up counters. start = people who signed up through your earlier forms.
+   source = link to each response sheet published as CSV (Google Sheets: File >
+   Share > Publish to web > Responses sheet > CSV). With both links set, the
+   counters count every response, from every visitor, and refresh every 30 seconds.
+   Without them, a counter only goes up for the visitor who just signed up. */
+var COUNTS = {
+  start:  { Boy: 4, Girl: 7 },
+  source: {
+    Boy:  "https://docs.google.com/spreadsheets/d/e/2PACX-1vS7kRUsRlt6INWkMNXg8jZP_31GiFU3rUxGpZhzutKG-leVpNsxH0JUqKgRgQAfvecSCokfvlZTMRNT/pub?output=csv",
+    Girl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQM_U1CqB2SwD5_LxeWNQQ_AcA406XAD8KbnVq7AMxJN3n0pMOSSqEUr0jD_VS84ZxkRwpSamiqoPuw/pub?output=csv"
+  }
+};
+
 var $ = function(s){ return document.querySelector(s); };
 var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -376,6 +398,46 @@ function tick(){
 tick();
 setInterval(tick, 1000);
 
+/* ---- Sign-up counters ---- */
+var tally = { Boy: { el: $("#nBoy"), fetched: null, base: null, adds: 0 }, Girl: { el: $("#nGirl"), fetched: null, base: null, adds: 0 } };
+function shown(g){
+  var t = tally[g], rows = t.fetched === null ? t.adds : Math.max(t.fetched, (t.base || 0) + t.adds);
+  return COUNTS.start[g] + rows;
+}
+function paint(g){
+  var t = tally[g], v = String(shown(g));
+  if (t.el.textContent === v) return;
+  t.el.textContent = v;
+  if (!reduce) { t.el.classList.remove("pop"); void t.el.offsetWidth; t.el.classList.add("pop"); }
+}
+function countRows(text){
+  var rows = 0, inQ = false, has = false;
+  for (var i = 0; i < text.length; i++) {
+    var ch = text.charAt(i);
+    if (ch === '"') { inQ = !inQ; has = true; }
+    else if (ch === "\n" && !inQ) { if (has) rows++; has = false; }
+    else if (ch !== "\r") has = true;
+  }
+  if (has) rows++;
+  return Math.max(0, rows - 1);
+}
+function pull(g){
+  var u = COUNTS.source[g]; if (!u) return;
+  fetch(u + (u.indexOf("?") < 0 ? "?" : "&") + "t=" + Date.now(), { cache: "no-store" })
+    .then(function(r){ if (!r.ok) throw new Error("bad"); return r.text(); })
+    .then(function(txt){
+      var n = countRows(txt), t = tally[g];
+      if (t.base === null) t.base = n;
+      t.fetched = n; paint(g);
+    })
+    .catch(function(){});
+}
+function pullAll(){ pull("Boy"); pull("Girl"); }
+function bump(g){ tally[g].adds++; paint(g); setTimeout(pullAll, 4000); }
+paint("Boy"); paint("Girl");
+pullAll();
+setInterval(function(){ if (!document.hidden) pullAll(); }, 30000);
+
 /* ---- Form ---- */
 var jf = $("#jf");
 function setErr(id, msg){
@@ -415,7 +477,7 @@ jf.addEventListener("submit", function(ev){
   body.append(en.name, name); body.append(en.college, college);
   body.append(en.year, year); body.append(en.instagram, ig);
   var send = fetch(GF.action[g], { method: "POST", mode: "no-cors", body: body });
-  send.then(function(){ showDone(ig); }).catch(function(){
+  send.then(function(){ bump(g); showDone(ig); }).catch(function(){
     busy = false; sbt.disabled = false; sbt.textContent = "Join the Corridor";
     setErr("ig", "Could not send that. Check your connection and try again.");
   });
