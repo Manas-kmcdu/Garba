@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Garba Corridor</title>
+<meta name="description" content="Find a partner or a group for garba nights across Delhi University. Open only to DU students. Presented by unrest.">
+<meta name="theme-color" content="#0C0A14">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230C0A14'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23FFC94A' opacity='.25'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%23FFE08A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600;700&family=Rozha+One&display=swap" rel="stylesheet">
+<style>
+/* Night only, one accent. Layout: a slim notice, a string of warm yellow lights, then a centred hero, three steps, a sign-up card beside its copy, and a quiet app row. */
+:root{
+  --bg:#0C0A14;
+  --surface:#15121F;
+  --fg:#F3EEE4;
+  --mute:#9B94AD;
+  --line:rgba(243,238,228,.14);
+  --accent:#FFC94A;
+  --on-accent:#1A1203;
+  --err:#FF8F85;
+  --display:"Rozha One",Georgia,serif;
+  --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"DM Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --gutter:clamp(16px,4vw,40px);
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:transparent;color:var(--fg);font:400 1rem/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(90% 360px at 50% 0,rgba(255,201,74,.08),transparent)}
+h1,h2,h3,p{margin:0}
+a{color:inherit}
+::selection{background:var(--accent);color:var(--on-accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1040px;margin-inline:auto;padding-inline:var(--gutter)}
+.lb{font:500 .72rem/1.4 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 28px;border-radius:999px;border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);font:600 .8rem/1 var(--body);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:transform .25s,box-shadow .25s,border-color .25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px -14px var(--accent)}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--fg);box-shadow:none}
+.btn.sm{min-height:40px;padding:0 18px;font-size:.7rem}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* notice and lights */
+.strip{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px var(--gutter);border-bottom:1px solid var(--line);color:var(--accent);font:600 .72rem/1.4 var(--body);letter-spacing:.16em;text-transform:uppercase;text-align:center}
+.strip::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.lights{height:64px;overflow:hidden;pointer-events:none}
+.lights svg{display:block}
+.gl{animation:tw 4s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.5}50%{opacity:1}}
+
+.bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding-block:6px 18px}
+.by{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+.unrest{font:700 1.5rem/1 var(--body);letter-spacing:-.04em}
+.unrest i{font-style:normal;color:var(--accent)}
+
+/* hero */
+.hero{display:grid;justify-items:center;text-align:center;padding-block:clamp(36px,7vw,88px) clamp(56px,9vw,112px)}
+.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d,0)*90ms)}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}}
+.title{font:400 clamp(3.4rem,11vw,7.4rem)/.95 var(--display);letter-spacing:-.01em;margin:18px 0 26px}
+.title span{display:block}
+.title .y{color:var(--accent);text-shadow:0 0 32px rgba(255,201,74,.3)}
+.lede{font-size:clamp(1.05rem,2.2vw,1.25rem);line-height:1.5;max-width:30em}
+.note{margin-top:22px;max-width:34em;font-size:.95rem;color:var(--mute)}
+.note b{color:var(--fg)}
+.when{margin-top:40px;display:grid;justify-items:center;gap:16px}
+.cd{display:flex;flex-wrap:wrap;justify-content:center}
+.cd>div{min-width:84px;padding:4px 18px;text-align:center}
+.cd>div+div{border-left:1px solid var(--line)}
+.cd b{display:block;font:500 clamp(1.8rem,5vw,2.4rem)/1.1 var(--mono);font-variant-numeric:tabular-nums}
+.cd span{display:block;margin-top:4px;font-size:.62rem}
+.live{display:flex;align-items:center;gap:10px;font:400 clamp(1.3rem,3.4vw,1.7rem)/1.2 var(--display)}
+.live::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
+.cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:36px}
+
+/* sections */
+.sec{padding-block:clamp(48px,8vw,96px);border-top:1px solid var(--line)}
+h2.h{font:400 clamp(2rem,5vw,3.1rem)/1.08 var(--display);margin:12px 0 0;text-wrap:balance}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px 40px;margin-top:40px;padding:0;list-style:none}
+.steps li{min-width:0}
+.steps .n{font:500 .85rem/1 var(--mono);color:var(--accent)}
+.steps h3{font:700 1.15rem/1.3 var(--body);margin:12px 0 6px}
+.steps p{color:var(--mute);max-width:26em}
+
+/* join */
+.join{display:grid;gap:36px}
+@media(min-width:880px){.join{grid-template-columns:5fr 6fr;align-items:start}}
+.join>*{min-width:0}
+.join .copy>p{margin-top:18px;color:var(--mute);max-width:28em}
+.rules{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:10px}
+.rules li{display:flex;gap:14px;align-items:baseline}
+.rules li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--accent);translate:0 -2px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,4vw,38px)}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.lock{display:flex;gap:10px;align-items:center;margin-bottom:20px;padding:12px 14px;border-radius:12px;background:var(--bg);border:1px solid var(--line);font:500 .78rem/1.4 var(--mono);letter-spacing:.06em}
+.lock svg{flex:none;color:var(--accent)}
+.form{display:grid;gap:20px}
+.seg{display:grid;grid-template-columns:1fr 1fr;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--bg)}
+.seg label{position:relative;display:block}
+.seg input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.seg span{display:block;text-align:center;padding:11px 12px;border-radius:999px;font:600 .8rem/1 var(--body);letter-spacing:.12em;text-transform:uppercase;transition:background .25s,color .25s}
+.seg input:checked+span{background:var(--accent);color:var(--on-accent)}
+.seg input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.fld{display:grid;gap:6px;min-width:0}
+.fld input[type=text],.fld select{width:100%;min-height:48px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg);font:inherit;font-size:1rem}
+.fld input::placeholder{color:var(--mute);opacity:.7}
+.fld input:focus,.fld select:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.fld [aria-invalid="true"]{border-color:var(--err)}
+.ig{position:relative}
+.ig>span{position:absolute;left:14px;top:50%;translate:0 -50%;color:var(--mute);pointer-events:none}
+.ig input{padding-left:32px!important}
+.er{font-size:.85rem;color:var(--err)}
+.chk{display:flex;gap:12px;align-items:flex-start;font-size:.95rem;cursor:pointer}
+.chk input{flex:none;width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent)}
+.done h3{font:400 clamp(1.8rem,4vw,2.4rem)/1.1 var(--display);margin:10px 0 14px}
+.done p{color:var(--mute);margin-bottom:24px}
+.done p b{color:var(--fg)}
+
+/* app row */
+.app{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,44px)}
+.app>div{min-width:0;max-width:34em}
+.app h2{font:400 clamp(1.6rem,3.6vw,2.3rem)/1.1 var(--display);margin:10px 0 10px;text-wrap:balance}
+.app p{color:var(--mute)}
+
+footer{border-top:1px solid var(--line);padding-block:30px calc(30px + env(safe-area-inset-bottom,0px))}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-between}
+footer p{font-size:.88rem;color:var(--mute)}
+footer b{color:var(--fg)}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="strip">Only for Delhi University students</div>
+<div class="lights" id="lights" aria-hidden="true"></div>
+
+<header class="wrap bar">
+  <a class="by" href="https://unrestdu.in/get" target="_blank" rel="noopener" aria-label="Presented by unrest">
+    <span class="lb">Presented by</span><span class="unrest">unrest<i>.</i></span>
+  </a>
+  <a class="btn ghost sm" href="https://unrestdu.in/get" target="_blank" rel="noopener">Get the app</a>
+</header>
+
+<main>
+<section class="wrap hero" id="top">
+  <p class="lb rise" style="--d:0">Garba nights across Delhi University</p>
+  <h1 class="title rise" style="--d:1"><span>The Garba</span><span class="y">Corridor</span></h1>
+  <p class="lede rise" style="--d:2">Heading to a garba night this Navratri? Tell us who you are and we will pair you with a partner or a group to go with.</p>
+  <p class="note rise" style="--d:3"><b>This is not an event.</b> We do not organise any garba night. We only connect DU students who want to go to one together.</p>
+
+  <div class="when rise" style="--d:4">
+    <p class="lb" id="opensLb">The Corridor opens 12 Oct 2026 · 9:00 PM IST</p>
+    <div class="cd" id="cd" role="timer" aria-label="Time until the Corridor opens">
+      <div><b data-u="d">00</b><span class="lb">days</span></div>
+      <div><b data-u="h">00</b><span class="lb">hours</span></div>
+      <div><b data-u="m">00</b><span class="lb">min</span></div>
+      <div><b data-u="s">00</b><span class="lb">sec</span></div>
+    </div>
+    <p class="live" id="openNow" hidden>The Corridor is open</p>
+  </div>
+
+  <div class="cta rise" style="--d:5">
+    <a class="btn" href="https://unrestdu.in/get" target="_blank" rel="noopener">Download the app</a>
+  </div>
+</section>
+
+<section class="sec" id="how">
+  <div class="wrap">
+    <p class="lb">How it works</p>
+    <h2 class="h">Three steps, then you go together.</h2>
+    <ol class="steps">
+      <li><span class="n">1</span><h3>Tell us about you</h3><p>Choose boys or girls and fill in your name, college, year and Instagram ID.</p></li>
+      <li><span class="n">2</span><h3>We curate</h3><p>We build partners and groups out of everyone who signs up from across DU.</p></li>
+      <li><span class="n">3</span><h3>We reach out</h3><p>We contact you on Instagram with your partner or group. You pick the garba night and go together.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="join">
+  <div class="wrap join">
+    <div class="copy">
+      <p class="lb">Sign up</p>
+      <h2 class="h">Join the Corridor</h2>
+      <p>Sign-ups are open. Four details, one minute. We use them to pair you with the right people.</p>
+      <ul class="rules">
+        <li>Open only to Delhi University students.</li>
+        <li>We connect people. We do not organise or host garba nights.</li>
+        <li>We will reach you on the Instagram ID you enter.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div id="formView">
+        <form id="jf" class="form" novalidate>
+          <fieldset class="form">
+            <div class="seg" role="radiogroup" aria-label="Joining as">
+              <label><input type="radio" name="g" value="Boy" checked><span>Boys</span></label>
+              <label><input type="radio" name="g" value="Girl"><span>Girls</span></label>
+            </div>
+            <div class="fld"><label class="lb" for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" maxlength="60"><p class="er" id="e-name" role="alert" hidden></p></div>
+            <div class="fld"><label class="lb" for="f-college">College</label><input id="f-college" name="college" type="text" list="colleges" autocomplete="off" maxlength="80" placeholder="Start typing your college"><p class="er" id="e-college" role="alert" hidden></p></div>
+            <div class="fld"><label class="lb" for="f-year">Year</label>
+              <select id="f-year" name="year">
+                <option value="" selected disabled>Select your year</option>
+                <option>First Year</option><option>Second Year</option><option>Third Year</option><option>Fourth Year</option>
+              </select><p class="er" id="e-year" role="alert" hidden></p></div>
+            <div class="fld"><label class="lb" for="f-ig">Instagram ID</label>
+              <div class="ig"><span aria-hidden="true">@</span><input id="f-ig" name="ig" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="70" placeholder="yourhandle"></div>
+              <p class="er" id="e-ig" role="alert" hidden></p></div>
+            <div class="fld"><label class="chk" for="f-du"><input id="f-du" type="checkbox"><span>I am a current Delhi University student.</span></label><p class="er" id="e-du" role="alert" hidden></p></div>
+            <button class="btn" type="submit" id="sbt">Join the Corridor</button>
+          </fieldset>
+        </form>
+      </div>
+
+      <div id="doneView" class="done" hidden role="status">
+        <p class="lb">You are in</p>
+        <h3>Welcome to the Corridor.</h3>
+        <p>We will reach out on Instagram at <b id="doneIg">@you</b> once your partner or group is curated.</p>
+        <a class="btn ghost" href="https://unrestdu.in/get" target="_blank" rel="noopener">Get the Unrest app</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="app" style="padding-bottom:clamp(48px,8vw,96px)">
+  <div class="app">
+    <div>
+      <p class="lb">Presented by unrest</p>
+      <h2>Stay close to your Corridor on the Unrest app.</h2>
+      <p>Unrest is the verified campus network for Delhi University students.</p>
+    </div>
+    <a class="btn" href="https://unrestdu.in/get" target="_blank" rel="noopener">Download the app</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>The Garba Corridor</b> · Presented by unrest</p>
+    <p>Open only to Delhi University students. We connect people and do not organise garba nights.</p>
+  </div>
+</footer>
+
+<datalist id="colleges">
+  <option value="Acharya Narendra Dev College"></option><option value="Aryabhatta College"></option><option value="Atma Ram Sanatan Dharma College"></option>
+  <option value="Bhagini Nivedita College"></option><option value="Bharati College"></option><option value="Campus Law Centre"></option>
+  <option value="Daulat Ram College"></option><option value="Deen Dayal Upadhyaya College"></option><option value="Delhi School of Economics"></option>
+  <option value="Deshbandhu College"></option><option value="Dyal Singh College"></option><option value="Gargi College"></option>
+  <option value="Hansraj College"></option><option value="Hindu College"></option><option value="Indraprastha College for Women"></option>
+  <option value="Janki Devi Memorial College"></option><option value="Jesus and Mary College"></option><option value="Kamala Nehru College"></option>
+  <option value="Keshav Mahavidyalaya"></option><option value="Kirori Mal College"></option><option value="Lady Shri Ram College for Women"></option>
+  <option value="Lakshmibai College"></option><option value="Maharaja Agrasen College"></option><option value="Maitreyi College"></option>
+  <option value="Mata Sundri College for Women"></option><option value="Miranda House"></option><option value="Motilal Nehru College"></option>
+  <option value="PGDAV College"></option><option value="Rajdhani College"></option><option value="Ramanujan College"></option>
+  <option value="Ramjas College"></option><option value="Satyawati College"></option><option value="Shaheed Bhagat Singh College"></option>
+  <option value="Shaheed Rajguru College of Applied Sciences for Women"></option><option value="Shaheed Sukhdev College of Business Studies"></option>
+  <option value="Shivaji College"></option><option value="Shri Ram College of Commerce"></option><option value="Shyam Lal College"></option>
+  <option value="Sri Aurobindo College"></option><option value="Sri Guru Gobind Singh College of Commerce"></option><option value="Sri Guru Tegh Bahadur Khalsa College"></option>
+  <option value="Sri Venkateswara College"></option><option value="St. Stephen's College"></option><option value="Swami Shraddhanand College"></option>
+  <option value="Vivekananda College"></option><option value="Zakir Husain Delhi College"></option>
+</datalist>
+
+<script>
+(function(){
+"use strict";
+
+/* ---- Settings ---------------------------------------------------------
+   OPEN_AT : when the Corridor opens (12 Oct 2026, 9:00 PM IST). Sign-ups are always open.
+   GF      : the two Google Forms that receive sign-ups.
+             action  = each form's ".../formResponse" URL (Boys and Girls)
+             entries = the "entry.123456" id of each question (same in both)
+------------------------------------------------------------------------- */
+var OPEN_AT = new Date("2026-10-12T21:00:00+05:30").getTime();
+var GF = {
+  action: {
+    Boy:  "https://docs.google.com/forms/d/e/1FAIpQLSd9hZnL-Q4uX1yRXAGPgOafINJWf0Yj-pUgF7DeuYX-AsbS7Q/formResponse",
+    Girl: "https://docs.google.com/forms/d/e/1FAIpQLScQddesvKE__8WpLoojURp4swr1d_WMkDQB1KCm5oqX_bq4Sg/formResponse"
+  },
+  entries: { name: "entry.28033997", college: "entry.1521671643", year: "entry.340797216", instagram: "entry.444350105" }
+};
+
+var $ = function(s){ return document.querySelector(s); };
+var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---- String lights: a wire in soft swags with warm bulbs that glow slowly ---- */
+(function(){
+  var box = $("#lights"), lastW = 0;
+  function build(){
+    var W = box.clientWidth; if (!W || W === lastW) return;
+    lastW = W;
+    var n = Math.max(3, Math.round(W / 150)), sw = W / n, h = 64, k = 0;
+    var wire = "", bulbs = "";
+    for (var i = 0; i < n; i++) {
+      var x0 = i * sw;
+      wire += (i === 0 ? "M" + x0 + " 4" : "") + " Q" + (x0 + sw / 2) + " 48 " + (x0 + sw) + " 4";
+      [.22, .5, .78].forEach(function(t){
+        var x = x0 + t * sw, y = 4 + 88 * t * (1 - t), cy = y + 12;
+        var dur = (3.2 + (k * 0.53) % 2.4).toFixed(2), del = ((k * 0.71) % 3).toFixed(2);
+        bulbs += '<line x1="' + x.toFixed(1) + '" y1="' + y.toFixed(1) + '" x2="' + x.toFixed(1) + '" y2="' + (y + 6).toFixed(1) + '" stroke="rgba(243,238,228,.35)" stroke-width="1"/>' +
+          '<circle class="gl" cx="' + x.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="15" fill="url(#gl)" style="animation-duration:' + dur + 's;animation-delay:-' + del + 's"/>' +
+          '<rect x="' + (x - 2).toFixed(1) + '" y="' + (y + 5).toFixed(1) + '" width="4" height="3" rx="1" fill="#8A7340"/>' +
+          '<ellipse cx="' + x.toFixed(1) + '" cy="' + cy.toFixed(1) + '" rx="3.6" ry="5.2" fill="#FFE08A"/>';
+        k++;
+      });
+    }
+    box.innerHTML = '<svg width="' + W + '" height="' + h + '" viewBox="0 0 ' + W + " " + h + '" aria-hidden="true">' +
+      '<defs><radialGradient id="gl"><stop offset="0" stop-color="#FFC94A" stop-opacity=".6"/><stop offset="1" stop-color="#FFC94A" stop-opacity="0"/></radialGradient></defs>' +
+      '<path d="' + wire + '" fill="none" stroke="rgba(243,238,228,.35)" stroke-width="1.2"/>' + bulbs + "</svg>";
+  }
+  build();
+  var rz; window.addEventListener("resize", function(){ clearTimeout(rz); rz = setTimeout(build, 120); });
+})();
+
+/* ---- Countdown and lock ---- */
+var sbt = $("#sbt"), cd = $("#cd"), openNow = $("#openNow"), opensLb = $("#opensLb");
+var units = { d: cd.querySelector('[data-u="d"]'), h: cd.querySelector('[data-u="h"]'), m: cd.querySelector('[data-u="m"]'), s: cd.querySelector('[data-u="s"]') };
+var lastState = null, busy = false;
+function pad(n){ return String(n).padStart(2, "0"); }
+function applyState(){
+  var timeOpen = Date.now() >= OPEN_AT;
+  if (timeOpen === lastState) return;
+  lastState = timeOpen;
+  cd.hidden = timeOpen; opensLb.hidden = timeOpen; openNow.hidden = !timeOpen;
+}
+function tick(){
+  var d = OPEN_AT - Date.now();
+  if (d > 0) {
+    units.d.textContent = pad(Math.floor(d / 864e5));
+    units.h.textContent = pad(Math.floor(d % 864e5 / 36e5));
+    units.m.textContent = pad(Math.floor(d % 36e5 / 6e4));
+    units.s.textContent = pad(Math.floor(d % 6e4 / 1e3));
+  }
+  applyState();
+}
+tick();
+setInterval(tick, 1000);
+
+/* ---- Form ---- */
+var jf = $("#jf");
+function setErr(id, msg){
+  var e = $("#e-" + id), i = $("#f-" + id);
+  e.textContent = msg || ""; e.hidden = !msg;
+  i.setAttribute("aria-invalid", msg ? "true" : "false");
+}
+function cleanIg(v){
+  return v.trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, "").replace(/[\/?#].*$/, "").replace(/^@+/, "");
+}
+function showDone(handle){
+  $("#doneIg").textContent = "@" + handle;
+  $("#formView").hidden = true;
+  $("#doneView").hidden = false;
+  $("#doneView").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
+}
+jf.addEventListener("submit", function(ev){
+  ev.preventDefault();
+  if (busy) return;
+  var g = jf.elements.g.value;
+  var name = $("#f-name").value.trim().replace(/\s+/g, " ");
+  var college = $("#f-college").value.trim().replace(/\s+/g, " ");
+  var year = $("#f-year").value;
+  var ig = cleanIg($("#f-ig").value);
+  var du = $("#f-du").checked;
+  var bad = [];
+  function chk(id, fail, msg){ setErr(id, fail ? msg : ""); if (fail) bad.push(id); }
+  chk("name", name.length < 2, "Enter your name.");
+  chk("college", college.length < 2, "Enter your college.");
+  chk("year", !year, "Select your year.");
+  chk("ig", !/^[A-Za-z0-9._]{1,30}$/.test(ig), "Enter a valid Instagram ID, such as yourhandle.");
+  chk("du", !du, "Only Delhi University students can join the Corridor.");
+  if (bad.length) { $("#f-" + bad[0]).focus(); return; }
+
+  busy = true; sbt.disabled = true; sbt.textContent = "Sending…";
+  var body = new URLSearchParams(), en = GF.entries;
+  body.append(en.name, name); body.append(en.college, college);
+  body.append(en.year, year); body.append(en.instagram, ig);
+  var send = fetch(GF.action[g], { method: "POST", mode: "no-cors", body: body });
+  send.then(function(){ showDone(ig); }).catch(function(){
+    busy = false; sbt.disabled = false; sbt.textContent = "Join the Corridor";
+    setErr("ig", "Could not send that. Check your connection and try again.");
+  });
+});
+["name","college","ig"].forEach(function(id){ $("#f-" + id).addEventListener("input", function(){ setErr(id, ""); }); });
+$("#f-year").addEventListener("change", function(){ setErr("year", ""); });
+$("#f-du").addEventListener("change", function(){ setErr("du", ""); });
+
+})();
+</script>
+</body>
+</html>
