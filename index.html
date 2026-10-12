@@ -7,6 +7,11 @@
 <meta name="description" content="Find a partner or a group for garba nights across Delhi University. Open only to DU students. Presented by unrest.">
 <meta name="theme-color" content="#260A11">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230C0A14'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23FFC94A' opacity='.25'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%23FFE08A'/%3E%3C/svg%3E">
+<script>
+/* Scroll reveals only hide content when this script runs. If the main script fails to start them, everything is shown again after 4 seconds. */
+document.documentElement.className += " js";
+setTimeout(function(){ if (!window.__rv) document.documentElement.className = document.documentElement.className.replace(/\bjs\b/, ""); }, 4000);
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600;700&family=Rozha+One&display=swap" rel="stylesheet">
@@ -95,11 +100,19 @@ a{color:inherit}
 .cd span{display:block;margin-top:4px;font-size:.62rem}
 .live{display:flex;align-items:center;gap:10px;font:400 clamp(1.3rem,3.4vw,1.7rem)/1.2 var(--display)}
 .live::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
-.cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:36px}
+.cta{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:36px}
+.cta .btn{min-width:min(260px,100%)}
 .tally{margin-top:6px}
 .tally>div{min-width:132px}
 .tally b.pop{animation:pop .6s cubic-bezier(.2,.8,.2,1)}
 @keyframes pop{from{opacity:.4;transform:translateY(-8px);color:var(--accent)}}
+
+/* scroll reveals: blocks rise and sharpen as they enter the view, headings reveal word by word */
+.js .rv{opacity:0;transform:translateY(32px);filter:blur(6px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1),filter .9s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--n,0)*110ms)}
+.js .rv.in{opacity:1;transform:none;filter:none}
+.js .sp .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+.js .sp .w>span{display:inline-block;transform:translateY(112%);transition:transform 1s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--i)*75ms)}
+.js .sp.in .w>span{transform:none}
 
 /* sections */
 .sec{padding-block:clamp(48px,8vw,96px);border-top:1px solid var(--line)}
@@ -158,6 +171,8 @@ footer b{color:var(--fg)}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
   html{scroll-behavior:auto}
+  .js .rv{opacity:1;transform:none;filter:none}
+  .js .sp .w>span{transform:none}
 }
 </style>
 </head>
@@ -198,17 +213,18 @@ footer b{color:var(--fg)}
 
   <div class="cta rise" style="--d:5">
     <a class="btn" href="https://unrestdu.in/get" target="_blank" rel="noopener">Download the app</a>
+    <a class="btn ghost" href="#join">Join the Corridor</a>
   </div>
 </section>
 
 <section class="sec" id="how">
   <div class="wrap">
-    <p class="lb">How it works</p>
-    <h2 class="h">Three steps, then you go together.</h2>
+    <p class="lb rv">How it works</p>
+    <h2 class="h sp">Three steps, then you go together.</h2>
     <ol class="steps">
-      <li><span class="n">1</span><h3>Tell us about you</h3><p>Choose boys or girls and fill in your name, college, year and Instagram ID.</p></li>
-      <li><span class="n">2</span><h3>We curate</h3><p>We build partners and groups out of everyone who signs up from across DU.</p></li>
-      <li><span class="n">3</span><h3>We reach out</h3><p>We contact you on Instagram with your partner or group. You pick the garba night and go together.</p></li>
+      <li class="rv" style="--n:0"><span class="n">1</span><h3>Tell us about you</h3><p>Choose boys or girls and fill in your name, college, year and Instagram ID.</p></li>
+      <li class="rv" style="--n:1"><span class="n">2</span><h3>We curate</h3><p>We build partners and groups out of everyone who signs up from across DU.</p></li>
+      <li class="rv" style="--n:2"><span class="n">3</span><h3>We reach out</h3><p>We contact you on Instagram with your partner or group. You pick the garba night and go together.</p></li>
     </ol>
   </div>
 </section>
@@ -216,17 +232,17 @@ footer b{color:var(--fg)}
 <section class="sec" id="join">
   <div class="wrap join">
     <div class="copy">
-      <p class="lb">Sign up</p>
-      <h2 class="h">Join the Corridor</h2>
-      <p>Sign-ups are open. Four details, one minute. We use them to pair you with the right people.</p>
+      <p class="lb rv">Sign up</p>
+      <h2 class="h sp">Join the Corridor</h2>
+      <p class="rv" style="--n:1">Sign-ups are open. Four details, one minute. We use them to pair you with the right people.</p>
       <ul class="rules">
-        <li>Open only to Delhi University students.</li>
-        <li>We connect people. We do not organise or host garba nights.</li>
-        <li>We will reach you on the Instagram ID you enter.</li>
+        <li class="rv" style="--n:2">Open only to Delhi University students.</li>
+        <li class="rv" style="--n:3">We connect people. We do not organise or host garba nights.</li>
+        <li class="rv" style="--n:4">We will reach you on the Instagram ID you enter.</li>
       </ul>
     </div>
 
-    <div class="card">
+    <div class="card rv" style="--n:1">
       <div id="formView">
         <form id="jf" class="form" novalidate>
           <fieldset class="form">
@@ -261,10 +277,10 @@ footer b{color:var(--fg)}
 </section>
 
 <section class="wrap" id="app" style="padding-bottom:clamp(48px,8vw,96px)">
-  <div class="app">
+  <div class="app rv">
     <div>
       <p class="lb">Presented by unrest</p>
-      <h2>Stay close to your Corridor on the Unrest app.</h2>
+      <h2 class="sp">Stay close to your Corridor on the Unrest app.</h2>
       <p>Unrest is the verified campus network for Delhi University students.</p>
     </div>
     <a class="btn" href="https://unrestdu.in/get" target="_blank" rel="noopener">Download the app</a>
@@ -273,7 +289,7 @@ footer b{color:var(--fg)}
 </main>
 
 <footer>
-  <div class="wrap">
+  <div class="wrap rv">
     <p><b>The Garba Corridor</b> · Presented by unrest</p>
     <p>Open only to Delhi University students. We connect people and do not organise garba nights.</p>
   </div>
@@ -372,6 +388,25 @@ var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: re
       "--dur:" + r(10, 18).toFixed(1) + "s;--del:-" + r(0, 14).toFixed(1) + "s;--o:" + r(.16, .34).toFixed(2) + ";--dx:" + r(-40, 40).toFixed(0) + "px;--dy:" + r(-70, -20).toFixed(0) + 'px"></span>';
   }
   box.innerHTML = h;
+})();
+
+/* ---- Scroll reveals ---- */
+(function(){
+  var each = function(list, fn){ Array.prototype.forEach.call(list, fn); };
+  each(document.querySelectorAll(".sp"), function(el){
+    var h = "";
+    el.textContent.trim().split(/\s+/).forEach(function(w, i){ h += '<span class="w"><span style="--i:' + i + '">' + w + "</span></span> "; });
+    el.innerHTML = h;
+  });
+  var els = document.querySelectorAll(".rv, .sp");
+  window.__rv = true;
+  if (!("IntersectionObserver" in window)) { each(els, function(el){ el.classList.add("in"); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    });
+  }, { threshold: .15, rootMargin: "0px 0px -6% 0px" });
+  each(els, function(el){ io.observe(el); });
 })();
 
 /* ---- Countdown and lock ---- */
