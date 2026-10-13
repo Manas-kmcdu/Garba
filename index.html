@@ -25,6 +25,7 @@ setTimeout(function(){ if (!window.__rv) document.documentElement.className = do
   --accent:#FFC94A;
   --on-accent:#1A1203;
   --err:#FFB4A8;
+  --pump:#FF6A2A;
   --display:"Rozha One",Georgia,serif;
   --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"DM Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -205,6 +206,31 @@ details.tfull[open] summary{border-bottom:1px solid var(--line)}
 .tbody .stamp{margin-top:10px;font:500 .72rem/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
 footer .fl{display:flex;flex-wrap:wrap;gap:6px 20px}
 
+/* halloween house band */
+.hh{position:relative;isolation:isolate;overflow:hidden;display:block;background:#000;border-block:1px solid rgba(255,106,42,.3);color:#F4F0E8;text-decoration:none;--mx:72%;--my:40%}
+.hh-in{max-width:1040px;margin-inline:auto;padding:clamp(72px,12vw,140px) var(--gutter);display:flex;flex-wrap:wrap;align-items:center;gap:24px clamp(20px,4vw,48px)}
+.hh-spot{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(440px circle at var(--mx) var(--my),rgba(255,106,42,.2),transparent 70%);transition:opacity .4s}
+.hh-fx{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.hh-fog{position:absolute;left:-30%;top:15%;width:80%;height:75%;border-radius:50%;background:radial-gradient(closest-side,rgba(244,240,232,.075),transparent);filter:blur(26px);animation:hhdr 22s ease-in-out infinite alternate}
+.hh-fog.b{left:auto;right:-40%;top:40%;animation-duration:30s;animation-direction:alternate-reverse}
+@keyframes hhdr{to{transform:translateX(60%)}}
+.hh-em{position:absolute;bottom:-10px;width:var(--s,3px);height:var(--s,3px);border-radius:50%;background:var(--pump);box-shadow:0 0 8px 2px rgba(255,106,42,.6);opacity:0;animation:hhup linear infinite}
+@keyframes hhup{0%{transform:translate(0,0);opacity:0}12%{opacity:.9}100%{transform:translate(var(--x),-520px);opacity:0}}
+.hh-bat{position:absolute;left:-70px;top:var(--t);width:34px;animation:hhfly var(--d) linear infinite;animation-delay:var(--dl)}
+.hh-bat svg{display:block;width:100%;fill:#26262b;stroke:#55555c;stroke-width:.7;animation:hhfp .32s ease-in-out infinite alternate}
+@keyframes hhfly{to{transform:translate(calc(100vw + 140px),var(--y))}}
+@keyframes hhfp{to{transform:scaleY(.5)}}
+.hh-i{flex:none;width:clamp(76px,13vw,128px);height:auto;animation:bob 4.5s ease-in-out infinite,hhfl 3.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-3deg)}}
+@keyframes hhfl{0%,100%{filter:drop-shadow(0 0 22px rgba(255,106,42,.55))}46%{filter:drop-shadow(0 0 26px rgba(255,106,42,.7))}50%{filter:drop-shadow(0 0 8px rgba(255,106,42,.25))}54%{filter:drop-shadow(0 0 24px rgba(255,106,42,.65))}}
+.hh-f{animation:hhfc 5s infinite}
+@keyframes hhfc{0%,100%,60%,64%{opacity:1}62%{opacity:.25}30%{opacity:.75}}
+.hh-t{display:grid;gap:10px;min-width:0;flex:1 1 320px}
+.hh .lb{color:#929292}
+.hh-h{font:400 clamp(2.1rem,6.4vw,4.2rem)/1.04 var(--display);text-wrap:balance;transition:color .35s}
+.hh:hover .hh-h{color:var(--pump)}
+.hh-go{flex:none;display:grid;place-items:center;width:56px;height:56px;border:1px solid rgba(255,106,42,.5);border-radius:50%;color:var(--pump);font-size:1.3rem;transition:transform .35s,background .35s,box-shadow .35s}
+.hh:hover .hh-go{transform:translateX(6px);background:var(--pump);color:#000;box-shadow:0 0 40px -6px var(--pump)}
 /* app row */
 .app{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,44px)}
 .app>div{min-width:0;max-width:34em}
@@ -415,6 +441,22 @@ footer b{color:var(--fg)}
       </div>
     </details>
   </div>
+</section>
+
+<section id="halloween" aria-label="Halloween House" style="margin-bottom:clamp(40px,7vw,80px)">
+  <a class="hh" href="https://halloween.unrestdu.in" target="_blank" rel="noopener" aria-label="Join us at the Halloween House (opens in a new tab)">
+    <span class="hh-spot" aria-hidden="true"></span>
+    <span class="hh-fx" id="hhfx" aria-hidden="true">
+      <i class="hh-fog"></i><i class="hh-fog b"></i>
+      <i class="hh-bat" style="--t:16%;--y:-50px;--d:15s;--dl:-2s"><svg viewBox="0 0 32 16" aria-hidden="true"><path d="M16 6C18 2 23 1 30 4C27 5 26 8 25 10C23 8 21 8 20 10C19 8.500 17.500 8.500 16 11C14.500 8.500 13 8.500 12 10C11 8 9 8 7 10C6 8 5 5 2 4C9 1 14 2 16 6Z"/></svg></i>
+      <i class="hh-bat" style="--t:58%;--y:34px;--d:22s;--dl:-11s;width:26px"><svg viewBox="0 0 32 16" aria-hidden="true"><path d="M16 6C18 2 23 1 30 4C27 5 26 8 25 10C23 8 21 8 20 10C19 8.500 17.500 8.500 16 11C14.500 8.500 13 8.500 12 10C11 8 9 8 7 10C6 8 5 5 2 4C9 1 14 2 16 6Z"/></svg></i>
+    </span>
+    <span class="hh-in">
+      <svg class="hh-i" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 12c0-3.4 1.6-5.6 4.6-7" fill="none" stroke="#8A7340" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="15" cy="29" rx="8.5" ry="13" fill="#C94E17"/><ellipse cx="33" cy="29" rx="8.5" ry="13" fill="#C94E17"/><ellipse cx="24" cy="29" rx="9.5" ry="14" fill="#FF6A2A"/><g class="hh-f"><path d="M16.5 26l3.5-5.500 3.500 5.500zM24.500 26l3.500-5.500 3.500 5.500z" fill="#FFE08A"/><path d="M16 33.500l3 2.500 2.500-2 2.500 2 2.500-2 3 2" fill="none" stroke="#FFE08A" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></g></svg>
+      <span class="hh-t"><span class="lb">Our Halloween house party</span><span class="hh-h">Join us at the Halloween House</span></span>
+      <span class="hh-go" aria-hidden="true">&rarr;</span>
+    </span>
+  </a>
 </section>
 
 <section class="wrap" id="app" style="padding-bottom:clamp(48px,8vw,96px)">
@@ -930,6 +972,23 @@ window.addEventListener("online", refresh);
   if (s && IG_RE.test(s)) {
     mIg.value = s;
     if (/^\d{4}$/.test(p)) { mPin.value = p; load(s, p, false); }
+  }
+})();
+
+/* ---- Halloween House band ---- */
+(function(){
+  var a = $(".hh"), fx = $("#hhfx");
+  if (!a || !fx || reduce) return;
+  function r(x, y){ return x + Math.random() * (y - x); }
+  var h = "";
+  for (var i = 0; i < 22; i++) h += '<i class="hh-em" style="left:' + r(0, 100).toFixed(1) + '%;--x:' + r(-60, 60).toFixed(0) + 'px;--s:' + r(2, 4.5).toFixed(1) + 'px;animation-duration:' + r(6, 12).toFixed(1) + 's;animation-delay:-' + r(0, 12).toFixed(1) + 's"></i>';
+  fx.insertAdjacentHTML("beforeend", h);
+  if (window.matchMedia("(hover:hover)").matches) {
+    a.addEventListener("pointermove", function(e){
+      var b = a.getBoundingClientRect();
+      a.style.setProperty("--mx", (e.clientX - b.left) + "px");
+      a.style.setProperty("--my", (e.clientY - b.top) + "px");
+    });
   }
 })();
 
