@@ -16,7 +16,6 @@ setTimeout(function(){ if (!window.__rv) document.documentElement.className = do
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600;700&family=Rozha+One&display=swap" rel="stylesheet">
 <style>
-/* Night only, one accent. Layout: a slim notice, a string of warm yellow lights, then a centred hero, three steps, a sign-up card beside its copy, a matches section, and a quiet app row. */
 :root{
   --bg:#260A11;
   --surface:#35121C;
@@ -63,7 +62,7 @@ a{color:inherit}
 .bd{animation:bd 4s ease-in-out infinite}
 @keyframes bd{0%,100%{opacity:.6}50%{opacity:1}}
 
-/* ambient: drifting points of warm light, a breathing glow behind the heading, a soft pulse on the notice dot */
+/* ambient */
 .orbs{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
 .orb{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,201,74,.55),rgba(255,201,74,0) 70%);opacity:0;animation:orb var(--dur,12s) ease-in-out var(--del,0s) infinite alternate}
 @keyframes orb{0%{opacity:0;transform:translate(0,0) scale(.8)}50%{opacity:var(--o,.3)}100%{opacity:0;transform:translate(var(--dx,20px),var(--dy,-40px)) scale(1.15)}}
@@ -111,7 +110,7 @@ a{color:inherit}
 .tally b.pop{animation:pop .6s cubic-bezier(.2,.8,.2,1)}
 @keyframes pop{from{opacity:.4;transform:translateY(-8px);color:var(--accent)}}
 
-/* scroll reveals: blocks rise and sharpen as they enter the view, headings reveal word by word */
+/* scroll reveals */
 .js .rv{opacity:0;transform:translateY(32px);filter:blur(6px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1),filter .9s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--n,0)*110ms)}
 .js .rv.in{opacity:1;transform:none;filter:none}
 .js .sp .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
@@ -137,8 +136,6 @@ h2.h{font:400 clamp(2rem,5vw,3.1rem)/1.08 var(--display);margin:12px 0 0;text-wr
 .rules li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--accent);translate:0 -2px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,4vw,38px)}
 fieldset{border:0;margin:0;padding:0;min-width:0}
-.lock{display:flex;gap:10px;align-items:center;margin-bottom:20px;padding:12px 14px;border-radius:12px;background:var(--bg);border:1px solid var(--line);font:500 .78rem/1.4 var(--mono);letter-spacing:.06em}
-.lock svg{flex:none;color:var(--accent)}
 .form{display:grid;gap:20px}
 .seg{display:grid;grid-template-columns:1fr 1fr;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--bg)}
 .seg label{position:relative;display:block}
@@ -163,6 +160,8 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .done p{color:var(--mute);margin-bottom:24px}
 .done p b{color:var(--fg)}
 .done .btn+.btn{margin-left:10px;margin-top:10px}
+.pinbox{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px;padding:14px 18px;border:1px solid var(--accent);border-radius:14px;background:var(--bg)}
+.pinbox b{font:500 2rem/1 var(--mono);letter-spacing:.3em;color:var(--accent)}
 
 /* matches */
 .mlede{margin-top:18px;color:var(--mute);max-width:34em}
@@ -178,8 +177,6 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .tile h3{font:700 1.15rem/1.3 var(--body);overflow-wrap:anywhere}
 .tile .meta{color:var(--mute);font-size:.92rem;overflow-wrap:anywhere}
 .tile .iglink{justify-self:start;max-width:100%;font:500 .92rem/1.4 var(--mono);color:var(--accent);text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
-.tile .left{margin-top:8px;font:500 .72rem/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-variant-numeric:tabular-nums}
-.tile .left.low{color:var(--err)}
 .tile .acts{display:flex;gap:10px;margin-top:10px}
 .tile .acts .btn{flex:1;min-width:0}
 .badge{justify-self:start;margin-top:8px;padding:5px 12px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font:500 .7rem/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase}
@@ -187,6 +184,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .mmsg{margin-top:14px;min-height:1.4em;font-size:.9rem;color:var(--mute)}
 .mmsg:empty{margin-top:0;min-height:0}
 .msafe{margin-top:6px;font-size:.88rem;color:var(--mute);max-width:36em}
+#mupd{margin-top:4px}
 .msafe a,.chk a,.terms a,footer a{color:var(--accent)}
 
 /* safety note and terms */
@@ -251,7 +249,7 @@ footer b{color:var(--fg)}
 
   <div class="when rise" style="--d:4">
     <a class="live" href="#matches">Matches are live</a>
-    <p class="livenote">Signing up is required to see your matches. You will receive your PIN on Instagram to check your matches.</p>
+    <p class="livenote">Sign up to get your PIN instantly. Use it to see your matches. The list updates by itself.</p>
     <div class="cd tally" role="group" aria-label="Sign-ups so far">
       <div><b id="nBoy">4</b><span class="lb">Boys signed up</span></div>
       <div><b id="nGirl">15</b><span class="lb">Girls signed up</span></div>
@@ -269,9 +267,9 @@ footer b{color:var(--fg)}
     <p class="lb rv">How it works</p>
     <h2 class="h sp">Three steps, then you go together.</h2>
     <ol class="steps">
-      <li class="rv" style="--n:0"><span class="n">1</span><h3>Tell us about you</h3><p>Choose boys or girls and fill in your name, college, year and Instagram ID.</p></li>
-      <li class="rv" style="--n:1"><span class="n">2</span><h3>We curate</h3><p>We build partners and groups out of everyone who signs up from across DU.</p></li>
-      <li class="rv" style="--n:2"><span class="n">3</span><h3>We reach out</h3><p>We contact you on Instagram with your partner or group. You pick the garba night and go together.</p></li>
+      <li class="rv" style="--n:0"><span class="n">1</span><h3>Tell us about you</h3><p>Choose boys or girls and fill in your name, college, year and Instagram ID. You get your PIN right away.</p></li>
+      <li class="rv" style="--n:1"><span class="n">2</span><h3>Girls choose</h3><p>Every girl sees every boy who signed up and says yes or no. A yes shows her to that boy.</p></li>
+      <li class="rv" style="--n:2"><span class="n">3</span><h3>You connect</h3><p>Matched pairs message on Instagram, then pick a garba night and go together.</p></li>
     </ol>
   </div>
 </section>
@@ -281,11 +279,11 @@ footer b{color:var(--fg)}
     <div class="copy">
       <p class="lb rv">Sign up</p>
       <h2 class="h sp">Join the Corridor</h2>
-      <p class="rv" style="--n:1">Sign-ups are open. Four details, one minute. We use them to pair you with the right people.</p>
+      <p class="rv" style="--n:1">Sign-ups are open. Four details, one minute. Your PIN appears the moment you finish.</p>
       <ul class="rules">
         <li class="rv" style="--n:2">Open only to Delhi University students.</li>
         <li class="rv" style="--n:3">We connect people. We do not organise or host garba nights.</li>
-        <li class="rv" style="--n:4">We will reach you on the Instagram ID you enter.</li>
+        <li class="rv" style="--n:4">Your matches update on their own. No need to reload.</li>
       </ul>
     </div>
 
@@ -317,7 +315,8 @@ footer b{color:var(--fg)}
       <div id="doneView" class="done" hidden role="status">
         <p class="lb">You are in</p>
         <h3>Welcome to the Corridor.</h3>
-        <p>We will reach out on Instagram at <b id="doneIg">@you</b> with your personal PIN. Once you have it, your matches show up under My matches.</p>
+        <p>Your login for <b id="doneIg">@you</b> is below. Screenshot or copy this PIN now. You need it to see your matches.</p>
+        <div class="pinbox"><b id="donePin">0000</b><button type="button" class="btn ghost sm" id="copyPin">Copy PIN</button></div>
         <a class="btn ghost" href="#matches">See my matches</a><a class="btn ghost" href="https://unrestdu.in/get" target="_blank" rel="noopener">Get the Unrest app</a>
       </div>
     </div>
@@ -327,8 +326,8 @@ footer b{color:var(--fg)}
 <section class="sec" id="matches">
   <div class="wrap">
     <p class="lb rv">Your matches</p>
-    <h2 class="h sp">See who we found for you.</h2>
-    <p class="mlede rv" style="--n:1">Enter the Instagram ID you signed up with. Girls see their matches and say yes or no. Boys see the girls who said yes.</p>
+    <h2 class="h sp">See who is in the Corridor.</h2>
+    <p class="mlede rv" style="--n:1">Enter the Instagram ID and PIN from sign-up. Girls see every boy who signed up and say yes or no. Boys see the girls who said yes.</p>
 
     <div class="care rv" id="care" style="--n:2">
       <p class="lb">A little note from us</p>
@@ -351,7 +350,7 @@ footer b{color:var(--fg)}
         <div class="fld">
           <label class="lb" for="m-pin">Your PIN</label>
           <input id="m-pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="current-password" placeholder="4 digits">
-          <p class="hint">The 4-digit PIN we sent you on Instagram. Lost it? Message us there.</p>
+          <p class="hint">The 4-digit PIN shown when you signed up. Lost it? Message us on Instagram.</p>
         </div>
         <label class="chk" for="m-ok"><input id="m-ok" type="checkbox"><span>I am 18 or older and I agree to the <a href="#terms-full" data-terms>Terms &amp; Safety</a>.</span></label>
         <p class="er" id="e-m-ig" role="alert" hidden></p>
@@ -365,6 +364,7 @@ footer b{color:var(--fg)}
         </div>
         <p class="mnote" id="mnote"></p>
         <p class="msafe">Please talk on Instagram first, then meet in a public place. <a href="#care">Read our safety tips</a>.</p>
+        <p class="hint" id="mupd"></p>
         <div class="tiles" id="tiles"></div>
         <p class="mempty" id="mempty" hidden></p>
       </div>
@@ -399,7 +399,7 @@ footer b{color:var(--fg)}
         <p>Treat everyone with respect. Do not harass, pressure, threaten, impersonate or deceive anyone, and do not share another person's details or screenshots outside the purpose of getting to know each other. We may remove anyone, stop showing matches, or end the service at any time, without notice.</p>
 
         <h3>6. Your details</h3>
-        <p>We collect your name, college, year and Instagram ID, and a PIN we create for you. We use them to make matches and to contact you on Instagram. When you are matched, the other person can see your name, college and Instagram ID: a girl's details are shown to a boy only after she says yes, and a boy's details are shown to a girl while she decides. We do not sell your details. They are stored using Google tools such as Sheets and Forms, which are run by Google. We aim to handle your information in line with applicable Indian law, including the Digital Personal Data Protection Act, 2023. You can ask us to delete your details at any time by messaging us on Instagram.</p>
+        <p>We collect your name, college, year and Instagram ID, and a PIN generated when you sign up. We use them to run the service and to contact you on Instagram. Every girl who signs up can see the name, college and Instagram ID of the boys who signed up, so she can say yes or no. A girl's details are shown to a boy only after she says yes. Keep your PIN private. We do not sell your details. They are stored using Google tools such as Sheets and Forms, which are run by Google. We aim to handle your information in line with applicable Indian law, including the Digital Personal Data Protection Act, 2023. You can ask us to delete your details at any time by messaging us on Instagram.</p>
 
         <h3>7. No promises about the service</h3>
         <p>The service is provided "as is". We do not promise that you will get a match, that the site will always work, or that any match or meeting will turn out well.</p>
@@ -462,39 +462,28 @@ footer b{color:var(--fg)}
 
 /* ---- Settings ---------------------------------------------------------
    GF : the two Google Forms that receive sign-ups.
-        action  = each form's ".../formResponse" URL (Boys and Girls)
-        entries = the "entry.123456" id of each question (same in both)
+        action  = each form's ".../formResponse" URL
+        entries = "entry.123456" id of each question (same in both forms).
+        pin     = id of the new "PIN" short-answer question. PASTE IT BELOW.
 ------------------------------------------------------------------------- */
 var GF = {
   action: {
     Boy:  "https://docs.google.com/forms/d/e/1FAIpQLSd9hZnL-Q4uX1yRXAGPgOafINJWf0Yj-pUgF7DeuYX-AsbS7Q/formResponse",
     Girl: "https://docs.google.com/forms/d/e/1FAIpQLScQddesvKE__8WpLoojURp4swr1d_WMkDQB1KCm5oqX_bq4Sg/formResponse"
   },
-  entries: { name: "entry.28033997", college: "entry.1521671643", year: "entry.340797216", instagram: "entry.444350105" }
+  entries: { name: "entry.28033997", college: "entry.1521671643", year: "entry.340797216", instagram: "entry.444350105", pin: "entry.PASTE_PIN_ENTRY_ID" }
 };
 
-/* Sign-up counters. start = people who signed up through your earlier forms.
-   source = link to each response sheet published as CSV (Google Sheets: File >
-   Share > Publish to web > Responses sheet > CSV). With both links set, the
-   counters count every response, from every visitor, and refresh every 30 seconds.
-   Without them, a counter only goes up for the visitor who just signed up. */
-var COUNTS = {
-  start:  { Boy: 4, Girl: 15 },
-  source: {
-    Boy:  "https://docs.google.com/spreadsheets/d/e/2PACX-1vS7kRUsRlt6INWkMNXg8jZP_31GiFU3rUxGpZhzutKG-leVpNsxH0JUqKgRgQAfvecSCokfvlZTMRNT/pub?output=csv",
-    Girl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQM_U1CqB2SwD5_LxeWNQQ_AcA406XAD8KbnVq7AMxJN3n0pMOSSqEUr0jD_VS84ZxkRwpSamiqoPuw/pub?output=csv"
-  }
-};
+/* Sign-up counters. start = people from your earlier forms. Live totals now come from the backend ("counts" action), so no sheet needs publishing. */
+var COUNTS = { start: { Boy: 4, Girl: 15 } };
 
-/* Matches backend. Paste the web app URL of matches-backend.gs here (Apps Script >
-   Deploy > New deployment > Web app > Anyone). While this is empty the section runs on
-   built-in demo data: try the IDs demo_girl and demo_boy, both with PIN 1234. */
+/* Backend web app URL (matches-backend.gs, Deploy > Web app > Anyone). Empty = demo data: IDs demo_girl and demo_boy, PIN 1234. REDEPLOY as a new version after pasting the new backend; the URL stays the same. */
 var MATCH_API = "https://script.google.com/macros/s/AKfycbyx0SV6-gqPfdC51GMCiYx65qF4-C0f7xOhf0dvOirt0nwM0R0FpjpcNtUWvZarUrBeCA/exec";
 
 var $ = function(s){ return document.querySelector(s); };
 var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* ---- String lights: a wire in soft swags with warm bulbs that glow slowly ---- */
+/* ---- String lights ---- */
 (function(){
   var box = $("#lights"), lastW = 0;
   function build(){
@@ -523,7 +512,7 @@ var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: re
   var rz; window.addEventListener("resize", function(){ clearTimeout(rz); rz = setTimeout(build, 120); });
 })();
 
-/* ---- Ambient light: a few soft points that drift and fade in and out ---- */
+/* ---- Ambient light ---- */
 (function(){
   var box = $("#orbs"), h = "";
   function r(a, b){ return a + Math.random() * (b - a); }
@@ -554,11 +543,10 @@ var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: re
   each(els, function(el){ io.observe(el); });
 })();
 
-/* ---- Countdown and lock ---- */
 var sbt = $("#sbt"), busy = false;
 function pad(n){ return String(n).padStart(2, "0"); }
 
-/* ---- Sign-up counters ---- */
+/* ---- Sign-up counters (from backend) ---- */
 var tally = { Boy: { el: $("#nBoy"), fetched: null, base: null, adds: 0 }, Girl: { el: $("#nGirl"), fetched: null, base: null, adds: 0 } };
 function shown(g){
   var t = tally[g], rows = t.fetched === null ? t.adds : Math.max(t.fetched, (t.base || 0) + t.adds);
@@ -570,35 +558,24 @@ function paint(g){
   t.el.textContent = v;
   if (!reduce) { t.el.classList.remove("pop"); void t.el.offsetWidth; t.el.classList.add("pop"); }
 }
-function countRows(text){
-  var rows = 0, inQ = false, has = false;
-  for (var i = 0; i < text.length; i++) {
-    var ch = text.charAt(i);
-    if (ch === '"') { inQ = !inQ; has = true; }
-    else if (ch === "\n" && !inQ) { if (has) rows++; has = false; }
-    else if (ch !== "\r") has = true;
-  }
-  if (has) rows++;
-  return Math.max(0, rows - 1);
-}
-function pull(g){
-  var u = COUNTS.source[g]; if (!u) return;
-  fetch(u + (u.indexOf("?") < 0 ? "?" : "&") + "t=" + Date.now(), { cache: "no-store" })
-    .then(function(r){ if (!r.ok) throw new Error("bad"); return r.text(); })
-    .then(function(txt){
-      var n = countRows(txt), t = tally[g];
+function pullAll(){
+  if (!MATCH_API) return;
+  callApi({ action: "counts" }).then(function(r){
+    if (!r || !r.ok) return;
+    [["Boy", r.boys], ["Girl", r.girls]].forEach(function(p){
+      var n = Number(p[1]); if (!(n >= 0)) return;
+      var t = tally[p[0]];
       if (t.base === null) t.base = n;
-      t.fetched = n; paint(g);
-    })
-    .catch(function(){});
+      t.fetched = n; paint(p[0]);
+    });
+  }).catch(function(){});
 }
-function pullAll(){ pull("Boy"); pull("Girl"); }
 function bump(g){ tally[g].adds++; paint(g); setTimeout(pullAll, 4000); }
 paint("Boy"); paint("Girl");
 pullAll();
 setInterval(function(){ if (!document.hidden) pullAll(); }, 30000);
 
-/* ---- Form ---- */
+/* ---- Sign-up form ---- */
 var jf = $("#jf");
 function setErr(id, msg){
   var e = $("#e-" + id), i = $("#f-" + id);
@@ -608,13 +585,31 @@ function setErr(id, msg){
 function cleanIg(v){
   return v.trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, "").replace(/[\/?#].*$/, "").replace(/^@+/, "");
 }
-function showDone(handle){
+function newPin(){
+  var a = new Uint32Array(1);
+  (window.crypto || window.msCrypto).getRandomValues(a);
+  return String(1000 + (a[0] % 9000));
+}
+var signupTimer = null;
+function autoLogin(id, pin, tries){
+  clearTimeout(signupTimer);
+  if (M.id || tries <= 0) return;
+  load(id, pin, true);
+  signupTimer = setTimeout(function(){ autoLogin(id, pin, tries - 1); }, 4000);
+}
+function showDone(handle, pin){
   $("#doneIg").textContent = "@" + handle;
+  $("#donePin").textContent = pin;
   $("#formView").hidden = true;
   $("#doneView").hidden = false;
-  if (!M.id && !mIg.value) mIg.value = handle.toLowerCase();
+  mIg.value = handle.toLowerCase(); mPin.value = pin;
+  autoLogin(handle.toLowerCase(), pin, 6);
   $("#doneView").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
 }
+$("#copyPin").addEventListener("click", function(){
+  var p = $("#donePin").textContent, b = this;
+  (navigator.clipboard ? navigator.clipboard.writeText(p) : Promise.reject()).then(function(){ b.textContent = "Copied"; }, function(){ b.textContent = "Select and copy"; });
+});
 jf.addEventListener("submit", function(ev){
   ev.preventDefault();
   if (busy) return;
@@ -624,6 +619,7 @@ jf.addEventListener("submit", function(ev){
   var year = $("#f-year").value;
   var ig = cleanIg($("#f-ig").value);
   var du = $("#f-du").checked;
+  var ok = $("#f-ok").checked;
   var bad = [];
   function chk(id, fail, msg){ setErr(id, fail ? msg : ""); if (fail) bad.push(id); }
   chk("name", name.length < 2, "Enter your name.");
@@ -631,14 +627,17 @@ jf.addEventListener("submit", function(ev){
   chk("year", !year, "Select your year.");
   chk("ig", !/^[A-Za-z0-9._]{1,30}$/.test(ig), "Enter a valid Instagram ID, such as yourhandle.");
   chk("du", !du, "Only Delhi University students can join the Corridor.");
+  chk("ok", !ok, "Confirm you are 18 or older and agree to the Terms & Safety.");
   if (bad.length) { $("#f-" + bad[0]).focus(); return; }
 
   busy = true; sbt.disabled = true; sbt.textContent = "Sending…";
+  var pin = newPin();
   var body = new URLSearchParams(), en = GF.entries;
   body.append(en.name, name); body.append(en.college, college);
   body.append(en.year, year); body.append(en.instagram, ig);
+  body.append(en.pin, pin);
   var send = fetch(GF.action[g], { method: "POST", mode: "no-cors", body: body });
-  send.then(function(){ bump(g); showDone(ig); }).catch(function(){
+  send.then(function(){ bump(g); showDone(ig, pin); }).catch(function(){
     busy = false; sbt.disabled = false; sbt.textContent = "Join the Corridor";
     setErr("ig", "Could not send that. Check your connection and try again.");
   });
@@ -646,18 +645,19 @@ jf.addEventListener("submit", function(ev){
 ["name","college","ig"].forEach(function(id){ $("#f-" + id).addEventListener("input", function(){ setErr(id, ""); }); });
 $("#f-year").addEventListener("change", function(){ setErr("year", ""); });
 $("#f-du").addEventListener("change", function(){ setErr("du", ""); });
+$("#f-ok").addEventListener("change", function(){ setErr("ok", ""); });
 
 /* ---- Matches ----------------------------------------------------------
-   The page asks MATCH_API for the matches of one Instagram ID, and sends the ID's PIN with every request.
-   PINs are random, created by the backend, and sent to each student by you on Instagram.
-   A wrong ID or PIN returns { ok: false, error: "bad_pin" | "locked" }.
-   list   ->{ ok, now, role: "girl" | "boy" | "none", matches: [{ ig, name, college, year, status: "pending" | "yes", expiresAt }] }
-   decide -> { ok, status } or { ok: false, error: "expired" | "closed" | "not_found" }
-   Girls see pending matches (with an hour to answer) and the ones they said yes to.
-   Boys see only the girls who said yes to them. A "no" removes the tile. */
+   POST to MATCH_API with id + pin on every request.
+   list   -> { ok, now, role: "girl" | "boy" | "none", matches: [{ ig, name, college, year, status: "pending" | "yes" }] }
+   decide -> { ok, status } or { ok: false, error: "closed" | "not_found" }
+   counts -> { ok, boys, girls }
+   Girls see EVERY boy: "pending" until she answers, "yes" after she says yes. A "no" removes him for her.
+   Boys see only the girls who said yes to them.
+------------------------------------------------------------------------- */
 var mf = $("#mf"), mIg = $("#m-ig"), mPin = $("#m-pin"), mBtn = $("#mbtn"), mView = $("#mview"), mTiles = $("#tiles");
 var mEmpty = $("#mempty"), mNote = $("#mnote"), mWho = $("#mwho"), mMsg = $("#mmsg"), mErr = $("#e-m-ig");
-var M = { id: "", pin: "", role: "", items: [], offset: 0, sig: null, loading: false, busy: {}, busyN: 0 };
+var M = { id: "", pin: "", role: "", items: [], sig: null, loading: false, busy: {}, busyN: 0 };
 var IG_RE = /^[A-Za-z0-9._]{1,30}$/;
 
 /* Demo data, used only while MATCH_API is empty. */
@@ -665,44 +665,42 @@ var mock = null;
 function mockApi(p){
   return new Promise(function(resolve){
     setTimeout(function(){
-      var now = Date.now();
       if (!mock) {
         mock = {
-          girl: { demo_girl: [
-            { ig: "aarav.sharma", name: "Aarav Sharma", college: "Hansraj College", year: "Second Year", status: "pending", exp: now + 55 * 60000 },
-            { ig: "kabir_m", name: "Kabir Mehta", college: "Shri Ram College of Commerce", year: "Third Year", status: "pending", exp: now + 3 * 60000 },
-            { ig: "rohan.v", name: "Rohan Verma", college: "Kirori Mal College", year: "First Year", status: "pending", exp: now + 40 * 60000 }
-          ] },
-          boy: { demo_boy: [
-            { ig: "ananya.rao", name: "Ananya Rao", college: "Miranda House", year: "First Year", status: "yes" }
-          ] }
+          boys: [
+            { ig: "aarav.sharma", name: "Aarav Sharma", college: "Hansraj College", year: "Second Year" },
+            { ig: "kabir_m", name: "Kabir Mehta", college: "Shri Ram College of Commerce", year: "Third Year" },
+            { ig: "rohan.v", name: "Rohan Verma", college: "Kirori Mal College", year: "First Year" }
+          ],
+          dec: {},
+          girlsYes: [{ ig: "ananya.rao", name: "Ananya Rao", college: "Miranda House", year: "First Year" }]
         };
       }
       var id = String(p.id || "").toLowerCase(), pin = String(p.pin || "");
-      if (!mock.pins) mock.pins = { demo_girl: "1234", demo_boy: "1234" };
-      if (mock.pins[id] !== pin) return resolve({ ok: false, error: "bad_pin" });
+      if (p.action === "counts") return resolve({ ok: true, boys: mock.boys.length, girls: 1 });
+      if (pin !== "1234" || (id !== "demo_girl" && id !== "demo_boy")) return resolve({ ok: false, error: "bad_pin" });
       if (p.action === "list") {
-        var role = mock.girl[id] ? "girl" : mock.boy[id] ? "boy" : "none";
-        var rows = (mock.girl[id] || mock.boy[id] || []).filter(function(x){ return x.status === "yes" || x.exp > now; });
-        resolve({ ok: true, now: now, role: role, matches: rows.map(function(x){
-          return { ig: x.ig, name: x.name, college: x.college, year: x.year, status: x.status, expiresAt: x.status === "pending" ? x.exp : null };
+        if (id === "demo_girl") {
+          return resolve({ ok: true, now: Date.now(), role: "girl", matches: mock.boys.filter(function(b){ return mock.dec[b.ig] !== "no"; }).map(function(b){
+            return { ig: b.ig, name: b.name, college: b.college, year: b.year, status: mock.dec[b.ig] === "yes" ? "yes" : "pending" };
+          }) });
+        }
+        return resolve({ ok: true, now: Date.now(), role: "boy", matches: mock.girlsYes.map(function(g){
+          return { ig: g.ig, name: g.name, college: g.college, year: g.year, status: "yes" };
         }) });
-        return;
       }
-      var list = mock.girl[id] || [], hit = null;
-      list.forEach(function(x){ if (x.ig === p.match) hit = x; });
+      if (id !== "demo_girl") return resolve({ ok: false, error: "not_found" });
+      var hit = mock.boys.filter(function(b){ return b.ig === p.match; })[0];
       if (!hit) return resolve({ ok: false, error: "not_found" });
-      if (hit.status !== "pending") return resolve({ ok: false, error: "closed" });
-      if (hit.exp <= now) return resolve({ ok: false, error: "expired" });
-      if (p.choice === "yes") hit.status = "yes";
-      else mock.girl[id] = list.filter(function(x){ return x !== hit; });
+      if (mock.dec[hit.ig]) return resolve({ ok: false, error: "closed" });
+      mock.dec[hit.ig] = p.choice === "yes" ? "yes" : "no";
       resolve({ ok: true, status: p.choice });
     }, 350);
   });
 }
 function callApi(p){
   if (!MATCH_API) return mockApi(p);
-  /* Always POST, so a PIN never appears in a URL. A string body is sent as text/plain, which needs no CORS preflight. */
+  /* POST with a text body: no CORS preflight, PIN never in a URL. */
   return fetch(MATCH_API, { method: "POST", body: JSON.stringify(p) })
     .then(function(r){ if (!r.ok) throw new Error("bad"); return r.json(); });
 }
@@ -711,11 +709,9 @@ function setMsg(t){ mMsg.textContent = t || ""; }
 function setMErr(t){ mErr.textContent = t || ""; mErr.hidden = !t; mIg.setAttribute("aria-invalid", t ? "true" : "false"); }
 function store(v){ try { if (v) localStorage.setItem("gc_ig", v); else localStorage.removeItem("gc_ig"); } catch (e) {} }
 function saved(){ try { return localStorage.getItem("gc_ig") || ""; } catch (e) { return ""; } }
-/* The ID is remembered on this device. The PIN is kept only for this browser tab and is gone when it closes. */
+/* ID is remembered on this device. PIN lives only for this tab. */
 function storePin(v){ try { if (v) sessionStorage.setItem("gc_pin", v); else sessionStorage.removeItem("gc_pin"); } catch (e) {} }
 function savedPin(){ try { return sessionStorage.getItem("gc_pin") || ""; } catch (e) { return ""; } }
-function nowSrv(){ return Date.now() + M.offset; }
-function mmss(ms){ var s = Math.max(0, Math.ceil(ms / 1000)); return pad(Math.floor(s / 60)) + ":" + pad(s % 60); }
 function igHref(h){ return IG_RE.test(h) ? "https://www.instagram.com/" + h + "/" : null; }
 function findItem(ig){ for (var i = 0; i < M.items.length; i++) if (M.items[i].ig === ig) return M.items[i]; return null; }
 function tileFor(ig){
@@ -735,12 +731,12 @@ function mk(tag, cls, text){
   return el;
 }
 
-/* Tiles are built with textContent only, so names typed by students can never inject markup. */
+/* Tiles use textContent only, so typed names can never inject markup. */
 function tileEl(it){
   var el = mk("article", "tile" + (it.status === "yes" ? " yes" : ""));
   el.setAttribute("data-ig", it.ig);
   el.appendChild(mk("h3", "", it.name));
-  el.appendChild(mk("p", "meta", it.college));
+  el.appendChild(mk("p", "meta", it.college + (it.year ? " · " + it.year : "")));
   var href = igHref(it.ig), link;
   if (href) {
     link = mk("a", "iglink", "@" + it.ig);
@@ -748,9 +744,6 @@ function tileEl(it){
   } else link = mk("span", "iglink", "@" + it.ig);
   el.appendChild(link);
   if (M.role === "girl" && it.status === "pending") {
-    var left = mk("p", "left");
-    left.setAttribute("data-exp", String(it.expiresAt));
-    el.appendChild(left);
     var acts = mk("div", "acts"), y = mk("button", "btn sm", "Yes"), n = mk("button", "btn ghost sm", "No");
     y.type = n.type = "button";
     y.setAttribute("data-act", "yes"); n.setAttribute("data-act", "no");
@@ -772,45 +765,23 @@ function render(){
   }
   mWho.textContent = "Matches for @" + M.id;
   var girl = M.role === "girl", boy = M.role === "boy";
-  mNote.textContent = girl ? "Say yes or no to each match. A match you do not answer disappears after 1 hour."
+  mNote.textContent = girl ? "Every boy who signed up shows here. Say yes or no to each. A no removes him. A yes shows your Instagram ID to him."
     : boy ? "These girls said yes to you. Tap an Instagram ID to message them." : "";
   var none = !M.items.length;
   mEmpty.hidden = !none;
-  mEmpty.textContent = !none ? "" : girl ? "No matches right now. New ones appear here as we curate them, so check back soon."
+  mEmpty.textContent = !none ? "" : girl ? "No boys to show right now. New sign-ups appear here on their own."
     : boy ? "No one has said yes yet. When a girl says yes to you, she shows up here."
-    : "Nothing here yet. Check that this is the Instagram ID you signed up with, and check back soon.";
-  updateTimers();
+    : "Nothing here yet. Check that this is the Instagram ID you signed up with.";
 }
-
-function updateTimers(){
-  var t = nowSrv(), expired = false;
-  Array.prototype.forEach.call(mTiles.querySelectorAll("[data-exp]"), function(p){
-    var rem = Number(p.getAttribute("data-exp")) - t;
-    if (rem <= 0) { expired = true; return; }
-    p.textContent = "Answer within " + mmss(rem);
-    p.classList.toggle("low", rem < 5 * 60000);
-  });
-  if (!expired) return;
-  var gone = M.items.filter(function(i){ return i.status === "pending" && i.expiresAt && i.expiresAt <= t; });
-  if (!gone.length) return;
-  gone.forEach(function(i){ var el = tileFor(i.ig); if (el) el.classList.add("gone"); });
-  M.items = M.items.filter(function(i){ return gone.indexOf(i) < 0; });
-  setMsg("A match expired because it was not answered within the hour.");
-  setTimeout(function(){ M.sig = null; render(); }, 380);
-}
-setInterval(updateTimers, 1000);
 
 function clean(x){
   var ig = String(x && x.ig || "").replace(/^@+/, "").toLowerCase();
   if (!ig) return null;
-  var st = x.status === "yes" ? "yes" : "pending";
-  var exp = Number(x.expiresAt);
   return {
-    ig: ig, status: st,
+    ig: ig, status: x.status === "yes" ? "yes" : "pending",
     name: String(x.name || "").slice(0, 80) || "Someone from DU",
     college: String(x.college || "").slice(0, 90),
-    year: String(x.year || "").slice(0, 20),
-    expiresAt: st === "pending" && exp > 0 ? exp : null
+    year: String(x.year || "").slice(0, 20)
   };
 }
 
@@ -823,12 +794,12 @@ function load(id, pin, quiet){
     var switched = M.id !== id;
     M.id = id; M.pin = pin; storePin(pin);
     M.role = r.role === "girl" || r.role === "boy" ? r.role : "none";
-    M.offset = (Number(r.now) || Date.now()) - Date.now();
-    M.items = (r.matches || []).map(clean).filter(function(x){ return x && (x.status === "yes" || (M.role === "girl" && x.expiresAt)); });
+    M.items = (r.matches || []).map(clean).filter(Boolean);
     if (switched) M.sig = null;
     store(id);
     mf.hidden = true; mView.hidden = false;
     render();
+    $("#mupd").textContent = "Live. Updated " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
   }).catch(function(err){
     if (quiet) return;
     var e = err && err.message;
@@ -847,10 +818,12 @@ mf.addEventListener("submit", function(ev){
   var pin = mPin.value.trim();
   if (!IG_RE.test(id)) { setMErr("Enter a valid Instagram ID, such as yourhandle."); mIg.focus(); return; }
   if (!/^\d{4}$/.test(pin)) { setMErr("Enter your 4-digit PIN."); mPin.focus(); return; }
+  if (!$("#m-ok").checked) { setMErr("Confirm you are 18 or older and agree to the Terms & Safety."); return; }
   load(id, pin, false);
 });
 mIg.addEventListener("input", function(){ setMErr(""); });
 mPin.addEventListener("input", function(){ setMErr(""); });
+$("#m-ok").addEventListener("change", function(){ setMErr(""); });
 
 $("#mswitch").addEventListener("click", function(){
   M.id = ""; M.pin = ""; M.role = ""; M.items = []; M.sig = null;
@@ -875,16 +848,16 @@ mTiles.addEventListener("click", function(ev){
     if (r && r.ok) {
       if (choice === "yes") {
         var it = findItem(ig);
-        if (it) { it.status = "yes"; it.expiresAt = null; }
+        if (it) it.status = "yes";
         M.sig = null; render();
-        setMsg("Saved. They can now see you when they enter their Instagram ID.");
+        setMsg("Saved. He can now see you when he enters his Instagram ID.");
       } else {
         drop(ig);
-        setMsg("Saved. That match is gone.");
+        setMsg("Saved. He is removed from your list.");
       }
-    } else if (r && (r.error === "expired" || r.error === "closed" || r.error === "not_found")) {
+    } else if (r && (r.error === "closed" || r.error === "not_found")) {
       drop(ig);
-      setMsg(r.error === "expired" ? "That match expired before it was answered." : "That match is no longer available.");
+      setMsg("That match is no longer available.");
     } else throw new Error("bad");
   }).catch(function(){
     release();
@@ -893,10 +866,12 @@ mTiles.addEventListener("click", function(ev){
   });
 });
 
-/* Refresh quietly so new matches appear and answered ones stay in step. */
+/* Auto refresh: every 10 s, plus on tab focus, visibility and reconnect. */
 function refresh(){ if (M.id && !M.busyN && !document.hidden) load(M.id, M.pin, true); }
-setInterval(refresh, 30000);
+setInterval(refresh, 10000);
 document.addEventListener("visibilitychange", refresh);
+window.addEventListener("focus", refresh);
+window.addEventListener("online", refresh);
 
 (function(){
   var s = saved(), p = savedPin();
