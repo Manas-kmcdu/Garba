@@ -186,6 +186,26 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .mempty{margin-top:22px;color:var(--mute);max-width:36em}
 .mmsg{margin-top:14px;min-height:1.4em;font-size:.9rem;color:var(--mute)}
 .mmsg:empty{margin-top:0;min-height:0}
+.msafe{margin-top:6px;font-size:.88rem;color:var(--mute);max-width:36em}
+.msafe a,.chk a,.terms a,footer a{color:var(--accent)}
+
+/* safety note and terms */
+.care{margin-top:32px;padding:clamp(20px,4vw,34px);border:1px solid var(--accent);border-radius:22px;background:rgba(255,201,74,.06)}
+.care h3{font:400 clamp(1.4rem,3vw,1.9rem)/1.15 var(--display);margin:8px 0 12px;text-wrap:balance}
+.care>p{color:var(--mute);max-width:42em}
+.care ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:10px;max-width:44em}
+.care li{display:flex;gap:14px;align-items:baseline;color:var(--mute)}
+.care li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--accent);translate:0 -2px}
+.care b{color:var(--fg)}
+.terms .intro{margin-top:18px;color:var(--mute);max-width:38em}
+details.tfull{margin-top:28px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+details.tfull summary{padding:18px 22px;cursor:pointer;font:600 .8rem/1.4 var(--body);letter-spacing:.12em;text-transform:uppercase}
+details.tfull[open] summary{border-bottom:1px solid var(--line)}
+.tbody{padding:10px 22px 24px;max-width:48em}
+.tbody h3{font:700 1rem/1.3 var(--body);margin:20px 0 4px}
+.tbody p{color:var(--mute);font-size:.95rem}
+.tbody .stamp{margin-top:10px;font:500 .72rem/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+footer .fl{display:flex;flex-wrap:wrap;gap:6px 20px}
 
 /* app row */
 .app{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,44px)}
@@ -288,6 +308,7 @@ footer b{color:var(--fg)}
               <div class="ig"><span aria-hidden="true">@</span><input id="f-ig" name="ig" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="70" placeholder="yourhandle"></div>
               <p class="er" id="e-ig" role="alert" hidden></p></div>
             <div class="fld"><label class="chk" for="f-du"><input id="f-du" type="checkbox"><span>I am a current Delhi University student.</span></label><p class="er" id="e-du" role="alert" hidden></p></div>
+            <div class="fld"><label class="chk" for="f-ok"><input id="f-ok" type="checkbox"><span>I am 18 or older and I agree to the <a href="#terms-full" data-terms>Terms &amp; Safety</a>.</span></label><p class="er" id="e-ok" role="alert" hidden></p></div>
             <button class="btn" type="submit" id="sbt">Join the Corridor</button>
           </fieldset>
         </form>
@@ -309,6 +330,21 @@ footer b{color:var(--fg)}
     <h2 class="h sp">See who we found for you.</h2>
     <p class="mlede rv" style="--n:1">Enter the Instagram ID you signed up with. Girls see their matches and say yes or no. Boys see the girls who said yes.</p>
 
+    <div class="care rv" id="care" style="--n:2">
+      <p class="lb">A little note from us</p>
+      <h3>Garba is better when everyone feels safe.</h3>
+      <p>We are so glad you are here. We introduce people, but you decide who to trust and when. We warmly encourage every match to talk on Instagram, or any other channel you are comfortable with, for a while before meeting in person.</p>
+      <ul>
+        <li><b>Chat first.</b> A few days of messages, or a quick video call, goes a long way.</li>
+        <li><b>Meet in public.</b> Choose a busy, well-lit place, and go with friends or as a group if you can.</li>
+        <li><b>Tell someone.</b> Let a friend or family member know where you are going and who you are meeting.</li>
+        <li><b>Plan your own ride.</b> Arrange your own transport and keep your phone charged.</li>
+        <li><b>Trust your gut.</b> You can say no, change plans or leave at any time, with no explanation needed.</li>
+        <li><b>Keep it private.</b> Do not share money, OTPs or your home address.</li>
+        <li><b>Tell us.</b> If anyone makes you uncomfortable, message us on Instagram. In an emergency, call 112 (women's helpline: 1091).</li>
+      </ul>
+    </div>
+
     <div class="card mcard rv" style="--n:2">
       <form id="mf" class="form" novalidate>
         <div class="fld">
@@ -320,6 +356,7 @@ footer b{color:var(--fg)}
           <input id="m-pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="current-password" placeholder="4 digits">
           <p class="hint">The 4-digit PIN we sent you on Instagram. Lost it? Message us there.</p>
         </div>
+        <label class="chk" for="m-ok"><input id="m-ok" type="checkbox"><span>I am 18 or older and I agree to the <a href="#terms-full" data-terms>Terms &amp; Safety</a>.</span></label>
         <p class="er" id="e-m-ig" role="alert" hidden></p>
         <button class="btn" type="submit" id="mbtn">Show my matches</button>
       </form>
@@ -330,11 +367,56 @@ footer b{color:var(--fg)}
           <button type="button" class="lnk" id="mswitch">Use a different ID</button>
         </div>
         <p class="mnote" id="mnote"></p>
+        <p class="msafe">Please talk on Instagram first, then meet in a public place. <a href="#care">Read our safety tips</a>.</p>
         <div class="tiles" id="tiles"></div>
         <p class="mempty" id="mempty" hidden></p>
       </div>
       <p class="mmsg" id="mmsg" role="status" aria-live="polite"></p>
     </div>
+  </div>
+</section>
+
+<section class="sec terms" id="terms">
+  <div class="wrap">
+    <p class="lb rv">Terms &amp; Safety</p>
+    <h2 class="h sp">The fine print, in plain words.</h2>
+    <p class="intro rv" style="--n:1">By signing up, or by opening your matches, you confirm that you are 18 or older and agree to the points below. Please read them. They are here to look after you, and us.</p>
+    <details class="tfull rv" id="terms-full" style="--n:2">
+      <summary>Read the full terms</summary>
+      <div class="tbody">
+        <p class="stamp">Version of 13 October 2026</p>
+
+        <h3>1. What this is</h3>
+        <p>The Garba Corridor, presented by Unrest ("we", "us"), is a free service that introduces Delhi University students who would like to go to a garba night together. We do not organise, host, sponsor, supervise or control any garba night, or any meeting between people who were introduced through this service.</p>
+
+        <h3>2. Who can use it</h3>
+        <p>You must be a current Delhi University student and at least 18 years old. You must give us true information, and use only your own Instagram ID.</p>
+
+        <h3>3. We do not verify people</h3>
+        <p>Names, colleges, years, Instagram IDs and everything else are provided by the people who sign up. We do not run background checks and we do not confirm anyone's identity, age, character or intentions. A match is an introduction, not a recommendation, endorsement or promise of safety.</p>
+
+        <h3>4. Your choices are your own</h3>
+        <p>You decide whether to say yes or no, whether to talk to a match, and whether to meet in person. We strongly encourage you to chat on Instagram or another channel first and to meet in public places, as set out in our safety note. Any conversation or meeting is between you and the other person, and you take part at your own risk.</p>
+
+        <h3>5. Be kind, be real</h3>
+        <p>Treat everyone with respect. Do not harass, pressure, threaten, impersonate or deceive anyone, and do not share another person's details or screenshots outside the purpose of getting to know each other. We may remove anyone, stop showing matches, or end the service at any time, without notice.</p>
+
+        <h3>6. Your details</h3>
+        <p>We collect your name, college, year and Instagram ID, and a PIN we create for you. We use them to make matches and to contact you on Instagram. When you are matched, the other person can see your name, college and Instagram ID: a girl's details are shown to a boy only after she says yes, and a boy's details are shown to a girl while she decides. We do not sell your details. They are stored using Google tools such as Sheets and Forms, which are run by Google. We aim to handle your information in line with applicable Indian law, including the Digital Personal Data Protection Act, 2023. You can ask us to delete your details at any time by messaging us on Instagram.</p>
+
+        <h3>7. No promises about the service</h3>
+        <p>The service is provided "as is". We do not promise that you will get a match, that the site will always work, or that any match or meeting will turn out well.</p>
+
+        <h3>8. Limits on our responsibility</h3>
+        <p>To the fullest extent permitted by law, we, Unrest, and our founders, team members and volunteers are not responsible for any loss, injury, harm, cost or damage that arises from your use of this service, from anything another user says or does, or from any meeting or event you attend. Nothing in these terms limits any responsibility that cannot be limited under applicable law.</p>
+
+        <h3>9. Reporting a problem</h3>
+        <p>If anyone makes you feel unsafe or uncomfortable, message us on Instagram and we will act on it as best we can, including by removing the person. In an emergency, call 112 first. We may share information with the police or other authorities when the law requires it or when someone's safety is at risk.</p>
+
+        <h3>10. Changes and governing law</h3>
+        <p>We may update these terms, and the version date above will change when we do. These terms are governed by the laws of India, and the courts in Delhi will have jurisdiction.</p>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -354,6 +436,7 @@ footer b{color:var(--fg)}
   <div class="wrap rv">
     <p><b>The Garba Corridor</b> · Presented by unrest</p>
     <p>Open only to Delhi University students. We connect people and do not organise garba nights.</p>
+    <p class="fl"><a href="#care">Safety tips</a><a href="#terms-full" data-terms>Terms &amp; Safety</a></p>
   </div>
 </footer>
 
