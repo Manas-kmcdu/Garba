@@ -546,34 +546,66 @@ var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: re
 var sbt = $("#sbt"), busy = false;
 function pad(n){ return String(n).padStart(2, "0"); }
 
-/* ---- Sign-up counters (from backend) ---- */
-var tally = { Boy: { el: $("#nBoy"), fetched: null, base: null, adds: 0 }, Girl: { el: $("#nGirl"), fetched: null, base: null, adds: 0 } };
-function shown(g){
-  var t = tally[g], rows = t.fetched === null ? t.adds : Math.max(t.fetched, (t.base || 0) + t.adds);
-  return COUNTS.start[g] + rows;
+/* ---- Sign-up counters: live totals from the backend ---- */
+var tally = {
+  Boy: { el: $("#nBoy"), fetched: null },
+  Girl: { el: $("#nGirl"), fetched: null }
+};
+
+function shown(g) {
+  // The backend already returns total counts. Do not add the old
+  // starting figures to those totals.
+  return tally[g].fetched === null
+    ? COUNTS.start[g]
+    : tally[g].fetched;
 }
-function paint(g){
-  var t = tally[g], v = String(shown(g));
-  if (t.el.textContent === v) return;
-  t.el.textContent = v;
-  if (!reduce) { t.el.classList.remove("pop"); void t.el.offsetWidth; t.el.classList.add("pop"); }
+
+function paint(g) {
+  var t = tally[g];
+  var value = String(shown(g));
+  if (t.el.textContent === value) return;
+  t.el.textContent = value;
+  if (!reduce) {
+    t.el.classList.remove("pop");
+    void t.el.offsetWidth;
+    t.el.classList.add("pop");
+  }
 }
-function pullAll(){
+
+function pullAll() {
   if (!MATCH_API) return;
-  callApi({ action: "counts" }).then(function(r){
-    if (!r || !r.ok) return;
-    [["Boy", r.boys], ["Girl", r.girls]].forEach(function(p){
-      var n = Number(p[1]); if (!(n >= 0)) return;
-      var t = tally[p[0]];
-      if (t.base === null) t.base = n;
-      t.fetched = n; paint(p[0]);
+
+  callApi({ action: "counts" }).then(function(r) {
+    if (!r || !r.ok) {
+      console.warn("Garba Corridor count request returned an error:", r);
+      return;
+    }
+
+    [["Boy", r.boys], ["Girl", r.girls]].forEach(function(item) {
+      var n = Number(item[1]);
+      if (!Number.isFinite(n) || n < 0) return;
+      tally[item[0]].fetched = n;
+      paint(item[0]);
     });
-  }).catch(function(){});
+  }).catch(function(err) {
+    // Keep the fallback values visible, but make failures diagnosable.
+    console.warn("Could not fetch Garba Corridor live counts:", err);
+  });
 }
-function bump(g){ tally[g].adds++; paint(g); setTimeout(pullAll, 4000); }
-paint("Boy"); paint("Girl");
+
+function bump(g) {
+  // Google Forms uses no-cors, so its response cannot confirm a saved row.
+  // Re-fetch the authoritative totals after the form submission.
+  setTimeout(pullAll, 4000);
+  setTimeout(pullAll, 10000);
+}
+
+paint("Boy");
+paint("Girl");
 pullAll();
-setInterval(function(){ if (!document.hidden) pullAll(); }, 30000);
+setInterval(function() {
+  if (!document.hidden) pullAll();
+}, 30000);
 
 /* ---- Sign-up form ---- */
 var jf = $("#jf");
