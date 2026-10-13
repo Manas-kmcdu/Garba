@@ -553,11 +553,10 @@ var tally = {
 };
 
 function shown(g) {
-  // The backend already returns total counts. Do not add the old
-  // starting figures to those totals.
+  // Add the genuine pre-existing sign-ups to the live backend totals.
   return tally[g].fetched === null
     ? COUNTS.start[g]
-    : tally[g].fetched;
+    : tally[g].fetched + COUNTS.start[g];
 }
 
 function paint(g) {
