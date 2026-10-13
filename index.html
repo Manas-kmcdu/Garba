@@ -99,8 +99,11 @@ a{color:inherit}
 .cd>div+div{border-left:1px solid var(--line)}
 .cd b{display:block;font:500 clamp(1.8rem,5vw,2.4rem)/1.1 var(--mono);font-variant-numeric:tabular-nums}
 .cd span{display:block;margin-top:4px;font-size:.62rem}
-.live{display:flex;align-items:center;gap:10px;font:400 clamp(1.3rem,3.4vw,1.7rem)/1.2 var(--display)}
-.live::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
+.live{display:inline-flex;align-items:center;gap:12px;padding:14px 28px;border:1px solid var(--accent);border-radius:999px;color:var(--fg);text-decoration:none;font:400 clamp(1.3rem,3.4vw,1.7rem)/1.2 var(--display);transition:transform .25s,box-shadow .25s,background .25s}
+.live::before{content:"";flex:none;width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent);animation:dot 2.4s ease-in-out infinite}
+.live::after{content:"→";color:var(--accent)}
+.live:hover{transform:translateY(-2px);background:rgba(255,201,74,.08);box-shadow:0 12px 30px -14px var(--accent)}
+.livenote{max-width:30em;font-size:.95rem;color:var(--mute)}
 .cta{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:36px}
 .cta .btn{min-width:min(260px,100%)}
 .tally{margin-top:6px}
@@ -227,14 +230,8 @@ footer b{color:var(--fg)}
   <p class="note rise" style="--d:3"><b>This is not an event.</b> We do not organise any garba night. We only connect DU students who want to go to one together.</p>
 
   <div class="when rise" style="--d:4">
-    <p class="lb" id="opensLb">The Corridor opens 12 Oct 2026 · 9:00 PM IST</p>
-    <div class="cd" id="cd" role="timer" aria-label="Time until the Corridor opens">
-      <div><b data-u="d">00</b><span class="lb">days</span></div>
-      <div><b data-u="h">00</b><span class="lb">hours</span></div>
-      <div><b data-u="m">00</b><span class="lb">min</span></div>
-      <div><b data-u="s">00</b><span class="lb">sec</span></div>
-    </div>
-    <p class="live" id="openNow" hidden>The Corridor is open</p>
+    <a class="live" href="#matches">Matches are live</a>
+    <p class="livenote">Signing up is required to see your matches. You will receive your PIN on Instagram to check your matches.</p>
     <div class="cd tally" role="group" aria-label="Sign-ups so far">
       <div><b id="nBoy">4</b><span class="lb">Boys signed up</span></div>
       <div><b id="nGirl">7</b><span class="lb">Girls signed up</span></div>
@@ -384,12 +381,10 @@ footer b{color:var(--fg)}
 "use strict";
 
 /* ---- Settings ---------------------------------------------------------
-   OPEN_AT : when the Corridor opens (12 Oct 2026, 9:00 PM IST). Sign-ups are always open.
-   GF      : the two Google Forms that receive sign-ups.
-             action  = each form's ".../formResponse" URL (Boys and Girls)
-             entries = the "entry.123456" id of each question (same in both)
+   GF : the two Google Forms that receive sign-ups.
+        action  = each form's ".../formResponse" URL (Boys and Girls)
+        entries = the "entry.123456" id of each question (same in both)
 ------------------------------------------------------------------------- */
-var OPEN_AT = new Date("2026-10-12T21:00:00+05:30").getTime();
 var GF = {
   action: {
     Boy:  "https://docs.google.com/forms/d/e/1FAIpQLSd9hZnL-Q4uX1yRXAGPgOafINJWf0Yj-pUgF7DeuYX-AsbS7Q/formResponse",
@@ -480,28 +475,8 @@ var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: re
 })();
 
 /* ---- Countdown and lock ---- */
-var sbt = $("#sbt"), cd = $("#cd"), openNow = $("#openNow"), opensLb = $("#opensLb");
-var units = { d: cd.querySelector('[data-u="d"]'), h: cd.querySelector('[data-u="h"]'), m: cd.querySelector('[data-u="m"]'), s: cd.querySelector('[data-u="s"]') };
-var lastState = null, busy = false;
+var sbt = $("#sbt"), busy = false;
 function pad(n){ return String(n).padStart(2, "0"); }
-function applyState(){
-  var timeOpen = Date.now() >= OPEN_AT;
-  if (timeOpen === lastState) return;
-  lastState = timeOpen;
-  cd.hidden = timeOpen; opensLb.hidden = timeOpen; openNow.hidden = !timeOpen;
-}
-function tick(){
-  var d = OPEN_AT - Date.now();
-  if (d > 0) {
-    units.d.textContent = pad(Math.floor(d / 864e5));
-    units.h.textContent = pad(Math.floor(d % 864e5 / 36e5));
-    units.m.textContent = pad(Math.floor(d % 36e5 / 6e4));
-    units.s.textContent = pad(Math.floor(d % 6e4 / 1e3));
-  }
-  applyState();
-}
-tick();
-setInterval(tick, 1000);
 
 /* ---- Sign-up counters ---- */
 var tally = { Boy: { el: $("#nBoy"), fetched: null, base: null, adds: 0 }, Girl: { el: $("#nGirl"), fetched: null, base: null, adds: 0 } };
