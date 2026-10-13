@@ -471,7 +471,7 @@ var GF = {
     Boy:  "https://docs.google.com/forms/d/e/1FAIpQLSd9hZnL-Q4uX1yRXAGPgOafINJWf0Yj-pUgF7DeuYX-AsbS7Q/formResponse",
     Girl: "https://docs.google.com/forms/d/e/1FAIpQLScQddesvKE__8WpLoojURp4swr1d_WMkDQB1KCm5oqX_bq4Sg/formResponse"
   },
-  entries: { name: "entry.28033997", college: "entry.1521671643", year: "entry.340797216", instagram: "entry.444350105", pin: "entry.2037530063" }
+  entries: { name: "entry.28033997", college: "entry.1521671643", year: "entry.340797216", instagram: "entry.444350105", pin: { Boy: "entry.2037530063", Girl: "entry.1638899696" } }
 };
 
 /* Sign-up counters. start = people from your earlier forms. Live totals now come from the backend ("counts" action), so no sheet needs publishing. */
@@ -666,7 +666,7 @@ jf.addEventListener("submit", function(ev){
   var body = new URLSearchParams(), en = GF.entries;
   body.append(en.name, name); body.append(en.college, college);
   body.append(en.year, year); body.append(en.instagram, ig);
-  body.append(en.pin, pin);
+  body.append(en.pin[g], pin);
   var send = fetch(GF.action[g], { method: "POST", mode: "no-cors", body: body });
   send.then(function(){ bump(g); showDone(ig, pin); }).catch(function(){
     busy = false; sbt.disabled = false; sbt.textContent = "Join the Corridor";
