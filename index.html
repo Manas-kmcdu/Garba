@@ -16,7 +16,7 @@ setTimeout(function(){ if (!window.__rv) document.documentElement.className = do
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600;700&family=Rozha+One&display=swap" rel="stylesheet">
 <style>
-/* Night only, one accent. Layout: a slim notice, a string of warm yellow lights, then a centred hero, three steps, a sign-up card beside its copy, and a quiet app row. */
+/* Night only, one accent. Layout: a slim notice, a string of warm yellow lights, then a centred hero, three steps, a sign-up card beside its copy, a matches section, and a quiet app row. */
 :root{
   --bg:#260A11;
   --surface:#35121C;
@@ -75,6 +75,7 @@ a{color:inherit}
 @keyframes bulbOn{from{opacity:0}}
 
 .bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding-block:6px 18px}
+.bar-r{display:flex;flex-wrap:wrap;gap:10px}
 .by{display:flex;align-items:baseline;gap:10px;text-decoration:none}
 .unrest{font:700 1.5rem/1 var(--body);letter-spacing:-.04em}
 .unrest i{font-style:normal;color:var(--accent)}
@@ -143,7 +144,9 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .seg input:checked+span{background:var(--accent);color:var(--on-accent)}
 .seg input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
 .fld{display:grid;gap:6px;min-width:0}
-.fld input[type=text],.fld select{width:100%;min-height:48px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg);font:inherit;font-size:1rem}
+.fld[hidden]{display:none}
+.hint{font-size:.85rem;color:var(--mute)}
+.fld input[type=text],.fld input[type=password],.fld select{width:100%;min-height:48px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg);font:inherit;font-size:1rem}
 .fld input::placeholder{color:var(--mute);opacity:.7}
 .fld input:focus,.fld select:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
 .fld [aria-invalid="true"]{border-color:var(--err)}
@@ -156,6 +159,30 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .done h3{font:400 clamp(1.8rem,4vw,2.4rem)/1.1 var(--display);margin:10px 0 14px}
 .done p{color:var(--mute);margin-bottom:24px}
 .done p b{color:var(--fg)}
+.done .btn+.btn{margin-left:10px;margin-top:10px}
+
+/* matches */
+.mlede{margin-top:18px;color:var(--mute);max-width:34em}
+.mcard{margin-top:32px}
+.mhead{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;justify-content:space-between}
+.lnk{padding:0;border:0;background:none;color:var(--accent);font:500 .78rem/1.4 var(--mono);letter-spacing:.08em;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.mnote{margin-top:10px;color:var(--mute);max-width:36em}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-top:22px}
+.tiles:empty{display:none}
+.tile{display:grid;gap:6px;align-content:start;min-width:0;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--bg);transition:opacity .35s,transform .35s,border-color .3s}
+.tile.gone{opacity:0;transform:scale(.96)}
+.tile.yes{border-color:var(--accent)}
+.tile h3{font:700 1.15rem/1.3 var(--body);overflow-wrap:anywhere}
+.tile .meta{color:var(--mute);font-size:.92rem;overflow-wrap:anywhere}
+.tile .iglink{justify-self:start;max-width:100%;font:500 .92rem/1.4 var(--mono);color:var(--accent);text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+.tile .left{margin-top:8px;font:500 .72rem/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-variant-numeric:tabular-nums}
+.tile .left.low{color:var(--err)}
+.tile .acts{display:flex;gap:10px;margin-top:10px}
+.tile .acts .btn{flex:1;min-width:0}
+.badge{justify-self:start;margin-top:8px;padding:5px 12px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font:500 .7rem/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.mempty{margin-top:22px;color:var(--mute);max-width:36em}
+.mmsg{margin-top:14px;min-height:1.4em;font-size:.9rem;color:var(--mute)}
+.mmsg:empty{margin-top:0;min-height:0}
 
 /* app row */
 .app{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,44px)}
@@ -186,7 +213,10 @@ footer b{color:var(--fg)}
   <a class="by" href="https://unrestdu.in/get" target="_blank" rel="noopener" aria-label="Presented by unrest">
     <span class="lb">Presented by</span><span class="unrest">unrest<i>.</i></span>
   </a>
-  <a class="btn ghost sm" href="https://unrestdu.in/get" target="_blank" rel="noopener">Get the app</a>
+  <div class="bar-r">
+    <a class="btn ghost sm" href="#matches">My matches</a>
+    <a class="btn ghost sm" href="https://unrestdu.in/get" target="_blank" rel="noopener">Get the app</a>
+  </div>
 </header>
 
 <main>
@@ -269,9 +299,44 @@ footer b{color:var(--fg)}
       <div id="doneView" class="done" hidden role="status">
         <p class="lb">You are in</p>
         <h3>Welcome to the Corridor.</h3>
-        <p>We will reach out on Instagram at <b id="doneIg">@you</b> once your partner or group is curated.</p>
-        <a class="btn ghost" href="https://unrestdu.in/get" target="_blank" rel="noopener">Get the Unrest app</a>
+        <p>We will reach out on Instagram at <b id="doneIg">@you</b> with your personal PIN. Once you have it, your matches show up under My matches.</p>
+        <a class="btn ghost" href="#matches">See my matches</a><a class="btn ghost" href="https://unrestdu.in/get" target="_blank" rel="noopener">Get the Unrest app</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="matches">
+  <div class="wrap">
+    <p class="lb rv">Your matches</p>
+    <h2 class="h sp">See who we found for you.</h2>
+    <p class="mlede rv" style="--n:1">Enter the Instagram ID you signed up with. Girls see their matches and say yes or no. Boys see the girls who said yes.</p>
+
+    <div class="card mcard rv" style="--n:2">
+      <form id="mf" class="form" novalidate>
+        <div class="fld">
+          <label class="lb" for="m-ig">Your Instagram ID</label>
+          <div class="ig"><span aria-hidden="true">@</span><input id="m-ig" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="70" placeholder="yourhandle"></div>
+        </div>
+        <div class="fld">
+          <label class="lb" for="m-pin">Your PIN</label>
+          <input id="m-pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="current-password" placeholder="4 digits">
+          <p class="hint">The 4-digit PIN we sent you on Instagram. Lost it? Message us there.</p>
+        </div>
+        <p class="er" id="e-m-ig" role="alert" hidden></p>
+        <button class="btn" type="submit" id="mbtn">Show my matches</button>
+      </form>
+
+      <div id="mview" hidden>
+        <div class="mhead">
+          <p class="lb" id="mwho"></p>
+          <button type="button" class="lnk" id="mswitch">Use a different ID</button>
+        </div>
+        <p class="mnote" id="mnote"></p>
+        <div class="tiles" id="tiles"></div>
+        <p class="mempty" id="mempty" hidden></p>
+      </div>
+      <p class="mmsg" id="mmsg" role="status" aria-live="polite"></p>
     </div>
   </div>
 </section>
@@ -345,6 +410,11 @@ var COUNTS = {
     Girl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQM_U1CqB2SwD5_LxeWNQQ_AcA406XAD8KbnVq7AMxJN3n0pMOSSqEUr0jD_VS84ZxkRwpSamiqoPuw/pub?output=csv"
   }
 };
+
+/* Matches backend. Paste the web app URL of matches-backend.gs here (Apps Script >
+   Deploy > New deployment > Web app > Anyone). While this is empty the section runs on
+   built-in demo data: try the IDs demo_girl and demo_boy, both with PIN 1234. */
+var MATCH_API = "";
 
 var $ = function(s){ return document.querySelector(s); };
 var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -487,6 +557,7 @@ function showDone(handle){
   $("#doneIg").textContent = "@" + handle;
   $("#formView").hidden = true;
   $("#doneView").hidden = false;
+  if (!M.id && !mIg.value) mIg.value = handle.toLowerCase();
   $("#doneView").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
 }
 jf.addEventListener("submit", function(ev){
@@ -520,6 +591,265 @@ jf.addEventListener("submit", function(ev){
 ["name","college","ig"].forEach(function(id){ $("#f-" + id).addEventListener("input", function(){ setErr(id, ""); }); });
 $("#f-year").addEventListener("change", function(){ setErr("year", ""); });
 $("#f-du").addEventListener("change", function(){ setErr("du", ""); });
+
+/* ---- Matches ----------------------------------------------------------
+   The page asks MATCH_API for the matches of one Instagram ID, and sends the ID's PIN with every request.
+   PINs are random, created by the backend, and sent to each student by you on Instagram.
+   A wrong ID or PIN returns { ok: false, error: "bad_pin" | "locked" }.
+   list   ->{ ok, now, role: "girl" | "boy" | "none", matches: [{ ig, name, college, year, status: "pending" | "yes", expiresAt }] }
+   decide -> { ok, status } or { ok: false, error: "expired" | "closed" | "not_found" }
+   Girls see pending matches (with an hour to answer) and the ones they said yes to.
+   Boys see only the girls who said yes to them. A "no" removes the tile. */
+var mf = $("#mf"), mIg = $("#m-ig"), mPin = $("#m-pin"), mBtn = $("#mbtn"), mView = $("#mview"), mTiles = $("#tiles");
+var mEmpty = $("#mempty"), mNote = $("#mnote"), mWho = $("#mwho"), mMsg = $("#mmsg"), mErr = $("#e-m-ig");
+var M = { id: "", pin: "", role: "", items: [], offset: 0, sig: null, loading: false, busy: {}, busyN: 0 };
+var IG_RE = /^[A-Za-z0-9._]{1,30}$/;
+
+/* Demo data, used only while MATCH_API is empty. */
+var mock = null;
+function mockApi(p){
+  return new Promise(function(resolve){
+    setTimeout(function(){
+      var now = Date.now();
+      if (!mock) {
+        mock = {
+          girl: { demo_girl: [
+            { ig: "aarav.sharma", name: "Aarav Sharma", college: "Hansraj College", year: "Second Year", status: "pending", exp: now + 55 * 60000 },
+            { ig: "kabir_m", name: "Kabir Mehta", college: "Shri Ram College of Commerce", year: "Third Year", status: "pending", exp: now + 3 * 60000 },
+            { ig: "rohan.v", name: "Rohan Verma", college: "Kirori Mal College", year: "First Year", status: "pending", exp: now + 40 * 60000 }
+          ] },
+          boy: { demo_boy: [
+            { ig: "ananya.rao", name: "Ananya Rao", college: "Miranda House", year: "First Year", status: "yes" }
+          ] }
+        };
+      }
+      var id = String(p.id || "").toLowerCase(), pin = String(p.pin || "");
+      if (!mock.pins) mock.pins = { demo_girl: "1234", demo_boy: "1234" };
+      if (mock.pins[id] !== pin) return resolve({ ok: false, error: "bad_pin" });
+      if (p.action === "list") {
+        var role = mock.girl[id] ? "girl" : mock.boy[id] ? "boy" : "none";
+        var rows = (mock.girl[id] || mock.boy[id] || []).filter(function(x){ return x.status === "yes" || x.exp > now; });
+        resolve({ ok: true, now: now, role: role, matches: rows.map(function(x){
+          return { ig: x.ig, name: x.name, college: x.college, year: x.year, status: x.status, expiresAt: x.status === "pending" ? x.exp : null };
+        }) });
+        return;
+      }
+      var list = mock.girl[id] || [], hit = null;
+      list.forEach(function(x){ if (x.ig === p.match) hit = x; });
+      if (!hit) return resolve({ ok: false, error: "not_found" });
+      if (hit.status !== "pending") return resolve({ ok: false, error: "closed" });
+      if (hit.exp <= now) return resolve({ ok: false, error: "expired" });
+      if (p.choice === "yes") hit.status = "yes";
+      else mock.girl[id] = list.filter(function(x){ return x !== hit; });
+      resolve({ ok: true, status: p.choice });
+    }, 350);
+  });
+}
+function callApi(p){
+  if (!MATCH_API) return mockApi(p);
+  /* Always POST, so a PIN never appears in a URL. A string body is sent as text/plain, which needs no CORS preflight. */
+  return fetch(MATCH_API, { method: "POST", body: JSON.stringify(p) })
+    .then(function(r){ if (!r.ok) throw new Error("bad"); return r.json(); });
+}
+
+function setMsg(t){ mMsg.textContent = t || ""; }
+function setMErr(t){ mErr.textContent = t || ""; mErr.hidden = !t; mIg.setAttribute("aria-invalid", t ? "true" : "false"); }
+function store(v){ try { if (v) localStorage.setItem("gc_ig", v); else localStorage.removeItem("gc_ig"); } catch (e) {} }
+function saved(){ try { return localStorage.getItem("gc_ig") || ""; } catch (e) { return ""; } }
+/* The ID is remembered on this device. The PIN is kept only for this browser tab and is gone when it closes. */
+function storePin(v){ try { if (v) sessionStorage.setItem("gc_pin", v); else sessionStorage.removeItem("gc_pin"); } catch (e) {} }
+function savedPin(){ try { return sessionStorage.getItem("gc_pin") || ""; } catch (e) { return ""; } }
+function nowSrv(){ return Date.now() + M.offset; }
+function mmss(ms){ var s = Math.max(0, Math.ceil(ms / 1000)); return pad(Math.floor(s / 60)) + ":" + pad(s % 60); }
+function igHref(h){ return IG_RE.test(h) ? "https://www.instagram.com/" + h + "/" : null; }
+function findItem(ig){ for (var i = 0; i < M.items.length; i++) if (M.items[i].ig === ig) return M.items[i]; return null; }
+function tileFor(ig){
+  for (var i = 0; i < mTiles.children.length; i++) if (mTiles.children[i].getAttribute("data-ig") === ig) return mTiles.children[i];
+  return null;
+}
+function drop(ig){
+  var el = tileFor(ig);
+  M.items = M.items.filter(function(i){ return i.ig !== ig; });
+  if (el) el.classList.add("gone");
+  setTimeout(function(){ M.sig = null; render(); }, 380);
+}
+function mk(tag, cls, text){
+  var el = document.createElement(tag);
+  if (cls) el.className = cls;
+  if (text !== undefined) el.textContent = text;
+  return el;
+}
+
+/* Tiles are built with textContent only, so names typed by students can never inject markup. */
+function tileEl(it){
+  var el = mk("article", "tile" + (it.status === "yes" ? " yes" : ""));
+  el.setAttribute("data-ig", it.ig);
+  el.appendChild(mk("h3", "", it.name));
+  el.appendChild(mk("p", "meta", it.college));
+  var href = igHref(it.ig), link;
+  if (href) {
+    link = mk("a", "iglink", "@" + it.ig);
+    link.href = href; link.target = "_blank"; link.rel = "noopener noreferrer";
+  } else link = mk("span", "iglink", "@" + it.ig);
+  el.appendChild(link);
+  if (M.role === "girl" && it.status === "pending") {
+    var left = mk("p", "left");
+    left.setAttribute("data-exp", String(it.expiresAt));
+    el.appendChild(left);
+    var acts = mk("div", "acts"), y = mk("button", "btn sm", "Yes"), n = mk("button", "btn ghost sm", "No");
+    y.type = n.type = "button";
+    y.setAttribute("data-act", "yes"); n.setAttribute("data-act", "no");
+    y.setAttribute("aria-label", "Yes to " + it.name); n.setAttribute("aria-label", "No to " + it.name);
+    if (M.busy[it.ig]) { y.disabled = n.disabled = true; }
+    acts.appendChild(y); acts.appendChild(n); el.appendChild(acts);
+  } else {
+    el.appendChild(mk("p", "badge", M.role === "girl" ? "You said yes" : "Said yes to you"));
+  }
+  return el;
+}
+
+function render(){
+  var sig = M.role + "|" + M.items.map(function(i){ return i.ig + ":" + i.status; }).join(",");
+  if (sig !== M.sig) {
+    M.sig = sig;
+    mTiles.textContent = "";
+    M.items.forEach(function(it){ mTiles.appendChild(tileEl(it)); });
+  }
+  mWho.textContent = "Matches for @" + M.id;
+  var girl = M.role === "girl", boy = M.role === "boy";
+  mNote.textContent = girl ? "Say yes or no to each match. A match you do not answer disappears after 1 hour."
+    : boy ? "These girls said yes to you. Tap an Instagram ID to message them." : "";
+  var none = !M.items.length;
+  mEmpty.hidden = !none;
+  mEmpty.textContent = !none ? "" : girl ? "No matches right now. New ones appear here as we curate them, so check back soon."
+    : boy ? "No one has said yes yet. When a girl says yes to you, she shows up here."
+    : "Nothing here yet. Check that this is the Instagram ID you signed up with, and check back soon.";
+  updateTimers();
+}
+
+function updateTimers(){
+  var t = nowSrv(), expired = false;
+  Array.prototype.forEach.call(mTiles.querySelectorAll("[data-exp]"), function(p){
+    var rem = Number(p.getAttribute("data-exp")) - t;
+    if (rem <= 0) { expired = true; return; }
+    p.textContent = "Answer within " + mmss(rem);
+    p.classList.toggle("low", rem < 5 * 60000);
+  });
+  if (!expired) return;
+  var gone = M.items.filter(function(i){ return i.status === "pending" && i.expiresAt && i.expiresAt <= t; });
+  if (!gone.length) return;
+  gone.forEach(function(i){ var el = tileFor(i.ig); if (el) el.classList.add("gone"); });
+  M.items = M.items.filter(function(i){ return gone.indexOf(i) < 0; });
+  setMsg("A match expired because it was not answered within the hour.");
+  setTimeout(function(){ M.sig = null; render(); }, 380);
+}
+setInterval(updateTimers, 1000);
+
+function clean(x){
+  var ig = String(x && x.ig || "").replace(/^@+/, "").toLowerCase();
+  if (!ig) return null;
+  var st = x.status === "yes" ? "yes" : "pending";
+  var exp = Number(x.expiresAt);
+  return {
+    ig: ig, status: st,
+    name: String(x.name || "").slice(0, 80) || "Someone from DU",
+    college: String(x.college || "").slice(0, 90),
+    year: String(x.year || "").slice(0, 20),
+    expiresAt: st === "pending" && exp > 0 ? exp : null
+  };
+}
+
+function load(id, pin, quiet){
+  if (M.loading) return;
+  M.loading = true;
+  if (!quiet) { mBtn.disabled = true; mBtn.textContent = "Loading…"; setMsg(""); setMErr(""); }
+  callApi({ action: "list", id: id, pin: pin }).then(function(r){
+    if (!r || !r.ok) throw new Error(r && r.error || "bad");
+    var switched = M.id !== id;
+    M.id = id; M.pin = pin; storePin(pin);
+    M.role = r.role === "girl" || r.role === "boy" ? r.role : "none";
+    M.offset = (Number(r.now) || Date.now()) - Date.now();
+    M.items = (r.matches || []).map(clean).filter(function(x){ return x && (x.status === "yes" || (M.role === "girl" && x.expiresAt)); });
+    if (switched) M.sig = null;
+    store(id);
+    mf.hidden = true; mView.hidden = false;
+    render();
+  }).catch(function(err){
+    if (quiet) return;
+    var e = err && err.message;
+    setMErr(e === "bad_pin" ? "That Instagram ID and PIN do not match."
+      : e === "locked" ? "Too many wrong tries. Try again in 15 minutes."
+      : "Could not load your matches. Check your connection and try again.");
+  }).then(function(){
+    M.loading = false;
+    if (!quiet) { mBtn.disabled = false; mBtn.textContent = "Show my matches"; }
+  });
+}
+
+mf.addEventListener("submit", function(ev){
+  ev.preventDefault();
+  var id = cleanIg(mIg.value).toLowerCase();
+  var pin = mPin.value.trim();
+  if (!IG_RE.test(id)) { setMErr("Enter a valid Instagram ID, such as yourhandle."); mIg.focus(); return; }
+  if (!/^\d{4}$/.test(pin)) { setMErr("Enter your 4-digit PIN."); mPin.focus(); return; }
+  load(id, pin, false);
+});
+mIg.addEventListener("input", function(){ setMErr(""); });
+mPin.addEventListener("input", function(){ setMErr(""); });
+
+$("#mswitch").addEventListener("click", function(){
+  M.id = ""; M.pin = ""; M.role = ""; M.items = []; M.sig = null;
+  store(""); storePin("");
+  mTiles.textContent = ""; mIg.value = ""; mPin.value = ""; setMsg(""); setMErr("");
+  mView.hidden = true; mf.hidden = false;
+  mIg.focus();
+});
+
+mTiles.addEventListener("click", function(ev){
+  var b = ev.target.closest ? ev.target.closest("button[data-act]") : null;
+  if (!b) return;
+  var tile = b.closest(".tile"), ig = tile.getAttribute("data-ig"), choice = b.getAttribute("data-act");
+  if (M.busy[ig]) return;
+  M.busy[ig] = true; M.busyN++;
+  Array.prototype.forEach.call(tile.querySelectorAll("button"), function(x){ x.disabled = true; });
+  b.textContent = "Saving…";
+  setMsg("");
+  function release(){ delete M.busy[ig]; M.busyN--; }
+  callApi({ action: "decide", id: M.id, pin: M.pin, match: ig, choice: choice }).then(function(r){
+    release();
+    if (r && r.ok) {
+      if (choice === "yes") {
+        var it = findItem(ig);
+        if (it) { it.status = "yes"; it.expiresAt = null; }
+        M.sig = null; render();
+        setMsg("Saved. They can now see you when they enter their Instagram ID.");
+      } else {
+        drop(ig);
+        setMsg("Saved. That match is gone.");
+      }
+    } else if (r && (r.error === "expired" || r.error === "closed" || r.error === "not_found")) {
+      drop(ig);
+      setMsg(r.error === "expired" ? "That match expired before it was answered." : "That match is no longer available.");
+    } else throw new Error("bad");
+  }).catch(function(){
+    release();
+    M.sig = null; render();
+    setMsg("Could not save that. Check your connection and try again.");
+  });
+});
+
+/* Refresh quietly so new matches appear and answered ones stay in step. */
+function refresh(){ if (M.id && !M.busyN && !document.hidden) load(M.id, M.pin, true); }
+setInterval(refresh, 30000);
+document.addEventListener("visibilitychange", refresh);
+
+(function(){
+  var s = saved(), p = savedPin();
+  if (s && IG_RE.test(s)) {
+    mIg.value = s;
+    if (/^\d{4}$/.test(p)) { mPin.value = p; load(s, p, false); }
+  }
+})();
 
 })();
 </script>
