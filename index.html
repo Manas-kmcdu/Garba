@@ -161,8 +161,20 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .done p{color:var(--mute);margin-bottom:24px}
 .done p b{color:var(--fg)}
 .done .btn+.btn{margin-left:10px;margin-top:10px}
+.done .hint{margin:-10px 0 20px}
 .pinbox{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px;padding:14px 18px;border:1px solid var(--accent);border-radius:14px;background:var(--bg)}
 .pinbox b{font:500 2rem/1 var(--mono);letter-spacing:.3em;color:var(--accent)}
+
+/* photo picker */
+.pf{position:relative;display:flex;align-items:center;gap:16px}
+.pf input[type=file]{position:absolute;left:0;top:0;width:1px;height:1px;opacity:0}
+.pf:focus-within label.btn{outline:2px solid var(--accent);outline-offset:3px}
+.pthumb{flex:none;width:60px;aspect-ratio:3/4;border-radius:10px;border:1px dashed var(--line);background:var(--bg) center/cover no-repeat;display:grid;place-items:center;color:var(--mute);font:500 1.3rem/1 var(--mono);transition:border-color .3s}
+.pthumb.has{border:1px solid var(--accent);color:transparent}
+.gate{display:grid;gap:14px;justify-items:start}
+.gate h3{font:400 clamp(1.5rem,3.4vw,2rem)/1.15 var(--display);text-wrap:balance}
+.gate>p:not(.lb):not(.er){color:var(--mute);max-width:32em}
+.gate .btn{margin-top:4px}
 
 /* matches */
 .mlede{margin-top:18px;color:var(--mute);max-width:34em}
@@ -170,23 +182,47 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .mhead{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;justify-content:space-between}
 .lnk{padding:0;border:0;background:none;color:var(--accent);font:500 .78rem/1.4 var(--mono);letter-spacing:.08em;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .mnote{margin-top:10px;color:var(--mute);max-width:36em}
-.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-top:22px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-top:14px}
 .tiles:empty{display:none}
-.tile{display:grid;gap:6px;align-content:start;min-width:0;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--bg);transition:opacity .35s,transform .35s,border-color .3s}
-.tile.gone{opacity:0;transform:scale(.96)}
+.tile{display:grid;gap:6px;align-content:start;min-width:0;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--bg)}
 .tile.yes{border-color:var(--accent)}
 .tile h3{font:700 1.15rem/1.3 var(--body);overflow-wrap:anywhere}
 .tile .meta{color:var(--mute);font-size:.92rem;overflow-wrap:anywhere}
 .tile .iglink{justify-self:start;max-width:100%;font:500 .92rem/1.4 var(--mono);color:var(--accent);text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
-.tile .acts{display:flex;gap:10px;margin-top:10px}
-.tile .acts .btn{flex:1;min-width:0}
 .badge{justify-self:start;margin-top:8px;padding:5px 12px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font:500 .7rem/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase}
 .mempty{margin-top:22px;color:var(--mute);max-width:36em}
 .mmsg{margin-top:14px;min-height:1.4em;font-size:.9rem;color:var(--mute)}
 .mmsg:empty{margin-top:0;min-height:0}
 .msafe{margin-top:6px;font-size:.88rem;color:var(--mute);max-width:36em}
 #mupd{margin-top:4px}
+#pnote{margin-top:10px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;color:var(--mute);font-size:.9rem}
 .msafe a,.chk a,.terms a,footer a{color:var(--accent)}
+.yeslb{margin-top:32px}
+
+/* swipe deck */
+.deck{position:relative;width:min(100%,340px);aspect-ratio:3/4;margin:26px auto 30px;outline-offset:8px;user-select:none;-webkit-user-select:none}
+.dcard{position:absolute;inset:0;overflow:hidden;border-radius:22px;border:1px solid var(--line);background:var(--bg);box-shadow:0 26px 50px -26px rgba(0,0,0,.8);will-change:transform;touch-action:pan-y;cursor:grab;transition:transform .4s cubic-bezier(.2,.8,.2,1),opacity .3s;animation:cardIn .45s cubic-bezier(.2,.8,.2,1) both}
+.dcard.drag{transition:none;cursor:grabbing}
+@keyframes cardIn{from{opacity:0}}
+.dcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
+.dcard .mono{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(90% 70% at 50% 35%,rgba(255,201,74,.16),transparent),var(--surface);color:var(--accent);opacity:.9;font:400 5.5rem/1 var(--display)}
+.dcard .cap{position:absolute;left:0;right:0;bottom:0;display:grid;gap:3px;padding:80px 20px 20px;background:linear-gradient(transparent,rgba(14,4,8,.92))}
+.dcard .cap h3{font:400 1.75rem/1.1 var(--display);overflow-wrap:anywhere}
+.dcard .cap p{color:rgba(247,238,228,.8);font-size:.9rem;overflow-wrap:anywhere}
+.dcard .cap a{justify-self:start;margin-top:4px;color:var(--accent);font:500 .88rem/1.4 var(--mono);text-underline-offset:3px;overflow-wrap:anywhere}
+.stamp{position:absolute;top:22px;padding:6px 14px;border:2px solid;border-radius:10px;font:700 .95rem/1 var(--body);letter-spacing:.16em;opacity:0;pointer-events:none}
+.stamp.y{left:18px;color:var(--accent);rotate:-10deg}
+.stamp.n{right:18px;color:var(--err);rotate:10deg}
+.dctl{display:flex;justify-content:center;gap:20px}
+.rb{width:60px;height:60px;display:grid;place-items:center;padding:0;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;transition:transform .2s,border-color .2s,background .2s,color .2s}
+.rb:hover{transform:translateY(-2px)}
+.rb[hidden]{display:none}
+.rb svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rb.y{border-color:var(--accent);color:var(--accent)}
+.rb.y:hover{background:var(--accent);color:var(--on-accent)}
+.rb.n:hover{border-color:var(--err);color:var(--err)}
+.dcount{margin-top:16px;text-align:center}
+.dcount:empty{display:none}
 
 /* safety note and terms */
 .care{margin-top:32px;padding:clamp(20px,4vw,34px);border:1px solid var(--accent);border-radius:22px;background:rgba(255,201,74,.06)}
@@ -203,7 +239,7 @@ details.tfull[open] summary{border-bottom:1px solid var(--line)}
 .tbody{padding:10px 22px 24px;max-width:48em}
 .tbody h3{font:700 1rem/1.3 var(--body);margin:20px 0 4px}
 .tbody p{color:var(--mute);font-size:.95rem}
-.tbody .stamp{margin-top:10px;font:500 .72rem/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.tbody .stamp-v{margin-top:10px;font:500 .72rem/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
 footer .fl{display:flex;flex-wrap:wrap;gap:6px 20px}
 
 /* halloween house band */
@@ -301,8 +337,8 @@ footer b{color:var(--fg)}
     <p class="lb rv">How it works</p>
     <h2 class="h sp">Three steps, then you go together.</h2>
     <ol class="steps">
-      <li class="rv" style="--n:0"><span class="n">1</span><h3>Tell us about you</h3><p>Choose boys or girls and fill in your name, college, year and Instagram ID. You get your PIN right away.</p></li>
-      <li class="rv" style="--n:1"><span class="n">2</span><h3>Girls choose</h3><p>Every girl sees every boy who signed up and says yes or no. A yes shows her to that boy.</p></li>
+      <li class="rv" style="--n:0"><span class="n">1</span><h3>Tell us about you</h3><p>Choose boys or girls and fill in your name, college, year and Instagram ID. Add a photo of yourself. You get your PIN right away.</p></li>
+      <li class="rv" style="--n:1"><span class="n">2</span><h3>Girls swipe</h3><p>Every girl swipes through the boys who signed up. Right for yes, left for no. A yes shows her to that boy.</p></li>
       <li class="rv" style="--n:2"><span class="n">3</span><h3>You connect</h3><p>Matched pairs message on Instagram, then pick a garba night and go together.</p></li>
     </ol>
   </div>
@@ -313,11 +349,11 @@ footer b{color:var(--fg)}
     <div class="copy">
       <p class="lb rv">Sign up</p>
       <h2 class="h sp">Join the Corridor</h2>
-      <p class="rv" style="--n:1">Sign-ups are open. Four details, one minute. Your PIN appears the moment you finish.</p>
+      <p class="rv" style="--n:1">Sign-ups are open. Five details, one minute. Your PIN appears the moment you finish.</p>
       <ul class="rules">
         <li class="rv" style="--n:2">Open only to Delhi University students.</li>
         <li class="rv" style="--n:3">We connect people. We do not organise or host garba nights.</li>
-        <li class="rv" style="--n:4">Your matches update on their own. No need to reload.</li>
+        <li class="rv" style="--n:4">Every photo is checked by us before anyone sees it.</li>
       </ul>
     </div>
 
@@ -339,6 +375,10 @@ footer b{color:var(--fg)}
             <div class="fld"><label class="lb" for="f-ig">Instagram ID</label>
               <div class="ig"><span aria-hidden="true">@</span><input id="f-ig" name="ig" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="70" placeholder="yourhandle"></div>
               <p class="er" id="e-ig" role="alert" hidden></p></div>
+            <div class="fld"><span class="lb" id="l-photo">Your photo</span>
+              <div class="pf"><input id="f-photo" type="file" accept="image/*" aria-labelledby="l-photo"><div class="pthumb" id="f-thumb" aria-hidden="true">+</div><label class="btn ghost sm" for="f-photo" id="f-photolb">Choose photo</label></div>
+              <p class="hint">A clear photo of you, face visible. Others see it only after we approve it.</p>
+              <p class="er" id="e-photo" role="alert" hidden></p></div>
             <div class="fld"><label class="chk" for="f-du"><input id="f-du" type="checkbox"><span>I am a current Delhi University student.</span></label><p class="er" id="e-du" role="alert" hidden></p></div>
             <div class="fld"><label class="chk" for="f-ok"><input id="f-ok" type="checkbox"><span>I am 18 or older and I agree to the <a href="#terms-full" data-terms>Terms &amp; Safety</a>.</span></label><p class="er" id="e-ok" role="alert" hidden></p></div>
             <button class="btn" type="submit" id="sbt">Join the Corridor</button>
@@ -350,6 +390,7 @@ footer b{color:var(--fg)}
         <p class="lb">You are in</p>
         <h3>Welcome to the Corridor.</h3>
         <p>Your login for <b id="doneIg">@you</b> is below. Screenshot or copy this PIN now. You need it to see your matches.</p>
+        <p class="hint" id="donePhoto"></p>
         <div class="pinbox"><b id="donePin">0000</b><button type="button" class="btn ghost sm" id="copyPin">Copy PIN</button></div>
         <a class="btn ghost" href="#matches">See my matches</a><a class="btn ghost" href="https://unrestdu.in/get" target="_blank" rel="noopener">Get the Unrest app</a>
       </div>
@@ -361,7 +402,7 @@ footer b{color:var(--fg)}
   <div class="wrap">
     <p class="lb rv">Your matches</p>
     <h2 class="h sp">See who is in the Corridor.</h2>
-    <p class="mlede rv" style="--n:1">Enter the Instagram ID and PIN from sign-up. Girls see every boy who signed up and say yes or no. Boys see the girls who said yes.</p>
+    <p class="mlede rv" style="--n:1">Enter the Instagram ID and PIN from sign-up. Girls swipe through the boys who signed up. Boys see the girls who said yes.</p>
 
     <div class="care rv" id="care" style="--n:2">
       <p class="lb">A little note from us</p>
@@ -396,11 +437,36 @@ footer b{color:var(--fg)}
           <p class="lb" id="mwho"></p>
           <button type="button" class="lnk" id="mswitch">Use a different ID</button>
         </div>
-        <p class="mnote" id="mnote"></p>
-        <p class="msafe">Please talk on Instagram first, then meet in a public place. <a href="#care">Read our safety tips</a>.</p>
-        <p class="hint" id="mupd"></p>
-        <div class="tiles" id="tiles"></div>
-        <p class="mempty" id="mempty" hidden></p>
+
+        <div class="gate" id="gate" hidden>
+          <p class="lb">One more thing</p>
+          <h3 id="gtitle">Add your photo to continue.</h3>
+          <p id="gtext">Add a clear photo of yourself. We check every photo before anyone sees it.</p>
+          <div class="pf"><input id="g-photo" type="file" accept="image/*" aria-label="Choose your photo"><div class="pthumb" id="g-thumb" aria-hidden="true">+</div><label class="btn ghost sm" for="g-photo">Choose photo</label></div>
+          <p class="er" id="e-g" role="alert" hidden></p>
+          <button type="button" class="btn" id="gbtn">Upload photo</button>
+        </div>
+
+        <div id="mbody">
+          <p class="mnote" id="mnote"></p>
+          <p class="msafe">Please talk on Instagram first, then meet in a public place. <a href="#care">Read our safety tips</a>.</p>
+          <p id="pnote" hidden>Your photo is waiting for approval. Others will see you once it is approved.</p>
+          <p class="hint" id="mupd"></p>
+
+          <div id="deckwrap" hidden>
+            <div class="deck" id="deck" tabindex="0" role="group" aria-label="Profile cards. Swipe or use the left and right arrow keys."></div>
+            <div class="dctl" id="dctl">
+              <button type="button" class="rb n" id="dno" aria-label="No"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+              <button type="button" class="rb y" id="dyes" aria-label="Yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7"/></svg></button>
+              <button type="button" class="rb" id="dnext" aria-label="Next" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            </div>
+            <p class="lb dcount" id="dcount" aria-live="polite"></p>
+          </div>
+
+          <p class="mempty" id="mempty" hidden></p>
+          <p class="lb yeslb" id="yeslb" hidden>You said yes</p>
+          <div class="tiles" id="tiles"></div>
+        </div>
       </div>
       <p class="mmsg" id="mmsg" role="status" aria-live="polite"></p>
     </div>
@@ -415,25 +481,25 @@ footer b{color:var(--fg)}
     <details class="tfull rv" id="terms-full" style="--n:2">
       <summary>Read the full terms</summary>
       <div class="tbody">
-        <p class="stamp">Version of 13 October 2026</p>
+        <p class="stamp-v">Version of 14 October 2026</p>
 
         <h3>1. What this is</h3>
         <p>The Garba Corridor, presented by Unrest ("we", "us"), is a free service that introduces Delhi University students who would like to go to a garba night together. We do not organise, host, sponsor, supervise or control any garba night, or any meeting between people who were introduced through this service.</p>
 
         <h3>2. Who can use it</h3>
-        <p>You must be a current Delhi University student and at least 18 years old. You must give us true information, and use only your own Instagram ID.</p>
+        <p>You must be a current Delhi University student and at least 18 years old. You must give us true information, use only your own Instagram ID, and upload only a photo of yourself.</p>
 
         <h3>3. We do not verify people</h3>
-        <p>Names, colleges, years, Instagram IDs and everything else are provided by the people who sign up. We do not run background checks and we do not confirm anyone's identity, age, character or intentions. A match is an introduction, not a recommendation, endorsement or promise of safety.</p>
+        <p>Names, colleges, years, Instagram IDs, photos and everything else are provided by the people who sign up. We check each photo before it is shown, but only to see that it looks like an appropriate photo of one person. We do not run background checks and we do not confirm anyone's identity, age, character or intentions. A match is an introduction, not a recommendation, endorsement or promise of safety.</p>
 
         <h3>4. Your choices are your own</h3>
         <p>You decide whether to say yes or no, whether to talk to a match, and whether to meet in person. We strongly encourage you to chat on Instagram or another channel first and to meet in public places, as set out in our safety note. Any conversation or meeting is between you and the other person, and you take part at your own risk.</p>
 
         <h3>5. Be kind, be real</h3>
-        <p>Treat everyone with respect. Do not harass, pressure, threaten, impersonate or deceive anyone, and do not share another person's details or screenshots outside the purpose of getting to know each other. We may remove anyone, stop showing matches, or end the service at any time, without notice.</p>
+        <p>Treat everyone with respect. Do not harass, pressure, threaten, impersonate or deceive anyone, and do not share another person's details, photos or screenshots outside the purpose of getting to know each other. Do not upload photos of anyone else, or anything explicit, offensive or unlawful. We may reject a photo, remove anyone, stop showing matches, or end the service at any time, without notice.</p>
 
         <h3>6. Your details</h3>
-        <p>We collect your name, college, year and Instagram ID, and a PIN generated when you sign up. We use them to run the service and to contact you on Instagram. Every girl who signs up can see the name, college and Instagram ID of the boys who signed up, so she can say yes or no. A girl's details are shown to a boy only after she says yes. Keep your PIN private. We do not sell your details. They are stored using Google tools such as Sheets and Forms, which are run by Google. We aim to handle your information in line with applicable Indian law, including the Digital Personal Data Protection Act, 2023. You can ask us to delete your details at any time by messaging us on Instagram.</p>
+        <p>We collect your name, college, year, Instagram ID, a photo you upload, and a PIN generated when you sign up. We use them to run the service and to contact you on Instagram. Every girl who signs up can see the name, college, Instagram ID and approved photo of the boys who signed up, so she can say yes or no. A girl's details and approved photo are shown to a boy only after she says yes. Keep your PIN private. We do not sell your details. They are stored using Google tools such as Sheets, Forms and Drive, which are run by Google. Photos are reachable only through a private link that is shown after approval, but anyone who receives that link could open it, so please upload only a photo you are comfortable sharing. We aim to handle your information in line with applicable Indian law, including the Digital Personal Data Protection Act, 2023. You can ask us to delete your details and photo at any time by messaging us on Instagram.</p>
 
         <h3>7. No promises about the service</h3>
         <p>The service is provided "as is". We do not promise that you will get a match, that the site will always work, or that any match or meeting will turn out well.</p>
@@ -521,8 +587,6 @@ var GF = {
     Boy:  "https://docs.google.com/forms/d/e/1FAIpQLSd9hZnL-Q4uX1yRXAGPgOafINJWf0Yj-pUgF7DeuYX-AsbS7Q/formResponse",
     Girl: "https://docs.google.com/forms/d/e/1FAIpQLScQddesvKE__8WpLoojURp4swr1d_WMkDQB1KCm5oqX_bq4Sg/formResponse"
   },
-  // Keep a complete field map for EACH Google Form. Do not reuse one form's
-  // PIN field for the other form.
   entries: {
     Boy: {
       name: "entry.28033997",
@@ -541,11 +605,15 @@ var GF = {
   }
 };
 
-/* Sign-up counters. start = people from your earlier forms. Live totals now come from the backend ("counts" action), so no sheet needs publishing. */
+/* Sign-up counters. start = people from your earlier forms. Live totals come from the backend ("counts" action). */
 var COUNTS = { start: { Boy: 4, Girl: 15 } };
 
-/* Backend web app URL (matches-backend.gs, Deploy > Web app > Anyone). Empty = demo data: IDs demo_girl and demo_boy, PIN 1234. REDEPLOY as a new version after pasting the new backend; the URL stays the same. */
+/* Backend web app URL. Empty = demo data: IDs demo_girl and demo_boy, PIN 1234. REDEPLOY as a new version after pasting the new backend; the URL stays the same. */
 var MATCH_API = "https://script.google.com/macros/s/AKfycbyx0SV6-gqPfdC51GMCiYx65qF4-C0f7xOhf0dvOirt0nwM0R0FpjpcNtUWvZarUrBeCA/exec";
+
+/* true  = people without an approved photo still appear (after those with photos) with an initial.
+   false = only people with an approved photo appear. */
+var SHOW_PHOTOLESS = true;
 
 var $ = function(s){ return document.querySelector(s); };
 var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -611,7 +679,6 @@ var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: re
 })();
 
 var sbt = $("#sbt"), busy = false;
-function pad(n){ return String(n).padStart(2, "0"); }
 
 /* ---- Sign-up counters: live totals from the backend ---- */
 var tally = {
@@ -620,11 +687,7 @@ var tally = {
 };
 
 function shown(g) {
-  // Avoid displaying stale baseline numbers while the live request is pending.
-  // Add the genuine pre-existing sign-ups after the backend responds.
-  return tally[g].fetched === null
-    ? "…"
-    : tally[g].fetched + COUNTS.start[g];
+  return tally[g].fetched === null ? "…" : tally[g].fetched + COUNTS.start[g];
 }
 
 function paint(g) {
@@ -641,13 +704,8 @@ function paint(g) {
 
 function pullAll() {
   if (!MATCH_API) return;
-
   callApi({ action: "counts" }).then(function(r) {
-    if (!r || !r.ok) {
-      console.warn("Garba Corridor count request returned an error:", r);
-      return;
-    }
-
+    if (!r || !r.ok) { console.warn("Garba Corridor count request returned an error:", r); return; }
     [["Boy", r.boys], ["Girl", r.girls]].forEach(function(item) {
       var n = Number(item[1]);
       if (!Number.isFinite(n) || n < 0) return;
@@ -655,14 +713,11 @@ function pullAll() {
       paint(item[0]);
     });
   }).catch(function(err) {
-    // Keep the fallback values visible, but make failures diagnosable.
     console.warn("Could not fetch Garba Corridor live counts:", err);
   });
 }
 
-function bump(g) {
-  // Google Forms uses no-cors, so its response cannot confirm a saved row.
-  // Re-fetch the authoritative totals after the form submission.
+function bump() {
   setTimeout(pullAll, 4000);
   setTimeout(pullAll, 10000);
 }
@@ -670,12 +725,54 @@ function bump(g) {
 paint("Boy");
 paint("Girl");
 pullAll();
-setInterval(function() {
-  if (!document.hidden) pullAll();
-}, 30000);
+setInterval(function() { if (!document.hidden) pullAll(); }, 30000);
+
+/* ---- Photo helpers: crop to 3:4, shrink, JPEG. Keeps uploads around 80-150 KB. ---- */
+function prepPhoto(file){
+  return new Promise(function(res, rej){
+    if (!file || !/^image\//.test(file.type)) return rej(new Error("type"));
+    if (file.size > 30 * 1024 * 1024) return rej(new Error("big"));
+    var url = URL.createObjectURL(file), img = new Image();
+    img.onload = function(){
+      try {
+        var w = img.naturalWidth, h = img.naturalHeight, tr = 3 / 4, sw = w, sh = h, sx = 0, sy = 0;
+        if (w / h > tr) { sw = Math.round(h * tr); sx = Math.round((w - sw) / 2); }
+        else { sh = Math.round(w / tr); sy = Math.round((h - sh) * 0.2); }
+        var cv = document.createElement("canvas"); cv.width = 720; cv.height = 960;
+        var cx = cv.getContext("2d");
+        cx.fillStyle = "#000"; cx.fillRect(0, 0, 720, 960);
+        cx.imageSmoothingQuality = "high";
+        cx.drawImage(img, sx, sy, sw, sh, 0, 0, 720, 960);
+        var out = cv.toDataURL("image/jpeg", 0.8);
+        URL.revokeObjectURL(url); res(out);
+      } catch (e) { URL.revokeObjectURL(url); rej(e); }
+    };
+    img.onerror = function(){ URL.revokeObjectURL(url); rej(new Error("decode")); };
+    img.src = url;
+  });
+}
+function bindPicker(input, thumb, onData, onFail){
+  input.addEventListener("change", function(){
+    var f = input.files && input.files[0];
+    if (!f) return;
+    prepPhoto(f).then(function(d){
+      thumb.style.backgroundImage = "url(" + d + ")";
+      thumb.classList.add("has");
+      onData(d);
+    }, function(){
+      thumb.style.backgroundImage = ""; thumb.classList.remove("has");
+      input.value = "";
+      onFail("Could not read that image. Try a different photo.");
+    });
+  });
+}
+function resetPicker(input, thumb){
+  input.value = ""; thumb.style.backgroundImage = ""; thumb.classList.remove("has");
+}
+function sendPhoto(id, pin, data){ return callApi({ action: "photo", id: id, pin: pin, image: data }); }
 
 /* ---- Sign-up form ---- */
-var jf = $("#jf");
+var jf = $("#jf"), suPhoto = "";
 function setErr(id, msg){
   var e = $("#e-" + id), i = $("#f-" + id);
   e.textContent = msg || ""; e.hidden = !msg;
@@ -689,6 +786,8 @@ function newPin(){
   (window.crypto || window.msCrypto).getRandomValues(a);
   return String(1000 + (a[0] % 9000));
 }
+bindPicker($("#f-photo"), $("#f-thumb"), function(d){ suPhoto = d; setErr("photo", ""); }, function(m){ suPhoto = ""; setErr("photo", m); });
+
 var signupTimer = null;
 function autoLogin(id, pin, tries){
   clearTimeout(signupTimer);
@@ -696,13 +795,31 @@ function autoLogin(id, pin, tries){
   load(id, pin, true);
   signupTimer = setTimeout(function(){ autoLogin(id, pin, tries - 1); }, 4000);
 }
-function showDone(handle, pin){
+/* Photo upload right after sign-up. The sheet row may take a few seconds to appear, so retry. */
+function uploadAfterSignup(id, pin, data, tries){
+  var note = $("#donePhoto");
+  M.upl = true; note.textContent = "Uploading your photo…";
+  sendPhoto(id, pin, data).then(function(r){
+    if (!r || !r.ok) throw new Error(r && r.error || "bad");
+    M.upl = false; M.me = "pending";
+    note.textContent = "Photo sent. We will approve it soon.";
+    if (M.id === id) render();
+  }).catch(function(){
+    if (tries > 1) { setTimeout(function(){ uploadAfterSignup(id, pin, data, tries - 1); }, 3500); return; }
+    M.upl = false;
+    note.textContent = "Your photo did not upload. You will be asked for it again when you open your matches.";
+    if (M.id === id) render();
+  });
+}
+function showDone(handle, pin, data){
   $("#doneIg").textContent = "@" + handle;
   $("#donePin").textContent = pin;
   $("#formView").hidden = true;
   $("#doneView").hidden = false;
   mIg.value = handle.toLowerCase(); mPin.value = pin;
+  M.upl = true;
   autoLogin(handle.toLowerCase(), pin, 6);
+  uploadAfterSignup(handle.toLowerCase(), pin, data, 8);
   $("#doneView").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
 }
 $("#copyPin").addEventListener("click", function(){
@@ -725,13 +842,13 @@ jf.addEventListener("submit", function(ev){
   chk("college", college.length < 2, "Enter your college.");
   chk("year", !year, "Select your year.");
   chk("ig", !/^[A-Za-z0-9._]{1,30}$/.test(ig), "Enter a valid Instagram ID, such as yourhandle.");
+  chk("photo", !suPhoto, "Add a photo of yourself.");
   chk("du", !du, "Only Delhi University students can join the Corridor.");
   chk("ok", !ok, "Confirm you are 18 or older and agree to the Terms & Safety.");
   if (bad.length) { $("#f-" + bad[0]).focus(); return; }
 
   busy = true; sbt.disabled = true; sbt.textContent = "Sending…";
   var pin = newPin();
-  // Select the matching field IDs for the selected form (Boy or Girl).
   var body = new URLSearchParams(), en = GF.entries[g];
   body.append(en.name, name);
   body.append(en.college, college);
@@ -739,7 +856,7 @@ jf.addEventListener("submit", function(ev){
   body.append(en.instagram, ig);
   body.append(en.pin, pin);
   var send = fetch(GF.action[g], { method: "POST", mode: "no-cors", body: body });
-  send.then(function(){ bump(g); showDone(ig, pin); }).catch(function(){
+  send.then(function(){ bump(); showDone(ig, pin, suPhoto); }).catch(function(){
     busy = false; sbt.disabled = false; sbt.textContent = "Join the Corridor";
     setErr("ig", "Could not send that. Check your connection and try again.");
   });
@@ -751,15 +868,18 @@ $("#f-ok").addEventListener("change", function(){ setErr("ok", ""); });
 
 /* ---- Matches ----------------------------------------------------------
    POST to MATCH_API with id + pin on every request.
-   list   -> { ok, now, role: "girl" | "boy" | "none", matches: [{ ig, name, college, year, status: "pending" | "yes" }] }
+   list   -> { ok, now, role: "girl" | "boy" | "none", me: "none" | "pending" | "approved" | "rejected",
+               matches: [{ ig, name, college, year, status: "pending" | "yes", photo: "<drive file id>" | "" }] }
    decide -> { ok, status } or { ok: false, error: "closed" | "not_found" }
+   photo  -> { ok, status: "pending" } or { ok: false, error: "bad_pin" | "bad_image" | "too_big" | "locked" }
    counts -> { ok, boys, girls }
    Girls see EVERY boy: "pending" until she answers, "yes" after she says yes. A "no" removes him for her.
    Boys see only the girls who said yes to them.
 ------------------------------------------------------------------------- */
 var mf = $("#mf"), mIg = $("#m-ig"), mPin = $("#m-pin"), mBtn = $("#mbtn"), mView = $("#mview"), mTiles = $("#tiles");
 var mEmpty = $("#mempty"), mNote = $("#mnote"), mWho = $("#mwho"), mMsg = $("#mmsg"), mErr = $("#e-m-ig");
-var M = { id: "", pin: "", role: "", items: [], sig: null, loading: false, busy: {}, busyN: 0 };
+var deckEl = $("#deck"), deckWrap = $("#deckwrap"), dcount = $("#dcount"), gate = $("#gate"), pnote = $("#pnote"), yeslb = $("#yeslb"), mBody = $("#mbody");
+var M = { id: "", pin: "", role: "", me: "", items: [], tsig: null, pos: 0, loading: false, busy: {}, busyN: 0, anim: false, upl: false };
 var IG_RE = /^[A-Za-z0-9._]{1,30}$/;
 
 /* Demo data, used only while MATCH_API is empty. */
@@ -774,21 +894,23 @@ function mockApi(p){
             { ig: "kabir_m", name: "Kabir Mehta", college: "Shri Ram College of Commerce", year: "Third Year" },
             { ig: "rohan.v", name: "Rohan Verma", college: "Kirori Mal College", year: "First Year" }
           ],
-          dec: {},
+          dec: {}, me: {},
           girlsYes: [{ ig: "ananya.rao", name: "Ananya Rao", college: "Miranda House", year: "First Year" }]
         };
       }
       var id = String(p.id || "").toLowerCase(), pin = String(p.pin || "");
       if (p.action === "counts") return resolve({ ok: true, boys: mock.boys.length, girls: 1 });
       if (pin !== "1234" || (id !== "demo_girl" && id !== "demo_boy")) return resolve({ ok: false, error: "bad_pin" });
+      if (p.action === "photo") { mock.me[id] = "pending"; return resolve({ ok: true, status: "pending" }); }
       if (p.action === "list") {
+        var me = mock.me[id] || "none";
         if (id === "demo_girl") {
-          return resolve({ ok: true, now: Date.now(), role: "girl", matches: mock.boys.filter(function(b){ return mock.dec[b.ig] !== "no"; }).map(function(b){
-            return { ig: b.ig, name: b.name, college: b.college, year: b.year, status: mock.dec[b.ig] === "yes" ? "yes" : "pending" };
+          return resolve({ ok: true, now: Date.now(), role: "girl", me: me, matches: mock.boys.filter(function(b){ return mock.dec[b.ig] !== "no"; }).map(function(b){
+            return { ig: b.ig, name: b.name, college: b.college, year: b.year, photo: "", status: mock.dec[b.ig] === "yes" ? "yes" : "pending" };
           }) });
         }
-        return resolve({ ok: true, now: Date.now(), role: "boy", matches: mock.girlsYes.map(function(g){
-          return { ig: g.ig, name: g.name, college: g.college, year: g.year, status: "yes" };
+        return resolve({ ok: true, now: Date.now(), role: "boy", me: me, matches: mock.girlsYes.map(function(g){
+          return { ig: g.ig, name: g.name, college: g.college, year: g.year, photo: "", status: "yes" };
         }) });
       }
       if (id !== "demo_girl") return resolve({ ok: false, error: "not_found" });
@@ -816,74 +938,242 @@ function storePin(v){ try { if (v) sessionStorage.setItem("gc_pin", v); else ses
 function savedPin(){ try { return sessionStorage.getItem("gc_pin") || ""; } catch (e) { return ""; } }
 function igHref(h){ return IG_RE.test(h) ? "https://www.instagram.com/" + h + "/" : null; }
 function findItem(ig){ for (var i = 0; i < M.items.length; i++) if (M.items[i].ig === ig) return M.items[i]; return null; }
-function tileFor(ig){
-  for (var i = 0; i < mTiles.children.length; i++) if (mTiles.children[i].getAttribute("data-ig") === ig) return mTiles.children[i];
-  return null;
-}
-function drop(ig){
-  var el = tileFor(ig);
-  M.items = M.items.filter(function(i){ return i.ig !== ig; });
-  if (el) el.classList.add("gone");
-  setTimeout(function(){ M.sig = null; render(); }, 380);
-}
 function mk(tag, cls, text){
   var el = document.createElement(tag);
   if (cls) el.className = cls;
   if (text !== undefined) el.textContent = text;
   return el;
 }
+function igLink(ig, cls){
+  var href = igHref(ig), a;
+  if (href) { a = mk("a", cls, "@" + ig); a.href = href; a.target = "_blank"; a.rel = "noopener noreferrer"; }
+  else a = mk("span", cls, "@" + ig);
+  return a;
+}
 
-/* Tiles use textContent only, so typed names can never inject markup. */
+/* Tiles (the "you said yes" list). textContent only, so typed names can never inject markup. */
 function tileEl(it){
-  var el = mk("article", "tile" + (it.status === "yes" ? " yes" : ""));
+  var el = mk("article", "tile yes");
   el.setAttribute("data-ig", it.ig);
   el.appendChild(mk("h3", "", it.name));
   el.appendChild(mk("p", "meta", it.college + (it.year ? " · " + it.year : "")));
-  var href = igHref(it.ig), link;
-  if (href) {
-    link = mk("a", "iglink", "@" + it.ig);
-    link.href = href; link.target = "_blank"; link.rel = "noopener noreferrer";
-  } else link = mk("span", "iglink", "@" + it.ig);
-  el.appendChild(link);
-  if (M.role === "girl" && it.status === "pending") {
-    var acts = mk("div", "acts"), y = mk("button", "btn sm", "Yes"), n = mk("button", "btn ghost sm", "No");
-    y.type = n.type = "button";
-    y.setAttribute("data-act", "yes"); n.setAttribute("data-act", "no");
-    y.setAttribute("aria-label", "Yes to " + it.name); n.setAttribute("aria-label", "No to " + it.name);
-    if (M.busy[it.ig]) { y.disabled = n.disabled = true; }
-    acts.appendChild(y); acts.appendChild(n); el.appendChild(acts);
-  } else {
-    el.appendChild(mk("p", "badge", M.role === "girl" ? "You said yes" : "Said yes to you"));
-  }
+  el.appendChild(igLink(it.ig, "iglink"));
+  el.appendChild(mk("p", "badge", "You said yes"));
   return el;
 }
 
+/* ---- Swipe deck ---- */
+var cards = [], drag = null;
+
+function deckList(){
+  var l = M.items.filter(function(i){ return M.role === "girl" ? i.status === "pending" : true; });
+  if (!SHOW_PHOTOLESS) l = l.filter(function(i){ return i.photo; });
+  return l.sort(function(a, b){ return (b.photo ? 1 : 0) - (a.photo ? 1 : 0); });
+}
+function photoEl(it){
+  var fallback = mk("div", "mono", (it.name.trim().charAt(0) || "?").toUpperCase());
+  if (!it.photo) return fallback;
+  var img = new Image(), step = 0;
+  img.alt = "Photo of " + it.name; img.decoding = "async"; img.draggable = false;
+  img.onerror = function(){
+    if (step++ === 0) img.src = "https://drive.google.com/thumbnail?id=" + it.photo + "&sz=w720";
+    else if (img.parentNode) img.parentNode.replaceChild(fallback, img);
+  };
+  img.src = "https://lh3.googleusercontent.com/d/" + it.photo + "=w720";
+  return img;
+}
+function cardEl(it){
+  var c = mk("article", "dcard");
+  c.setAttribute("data-ig", it.ig); c.setAttribute("data-photo", it.photo || "");
+  c.appendChild(photoEl(it));
+  if (M.role === "girl") { c.appendChild(mk("span", "stamp y", "YES")); c.appendChild(mk("span", "stamp n", "NO")); }
+  var cap = mk("div", "cap");
+  cap.appendChild(mk("h3", "", it.name));
+  cap.appendChild(mk("p", "", it.college + (it.year ? " · " + it.year : "")));
+  cap.appendChild(igLink(it.ig));
+  c.appendChild(cap);
+  return c;
+}
+function layout(){
+  cards.forEach(function(c, i){
+    c.style.zIndex = 10 - i;
+    c.style.opacity = "";
+    if (i === 0) { c.style.transform = ""; c.style.pointerEvents = "auto"; }
+    else { c.style.transform = "translateY(" + (i * 14) + "px) scale(" + (1 - i * 0.05) + ")"; c.style.pointerEvents = "none"; }
+    var sy = c.querySelector(".stamp.y"), sn = c.querySelector(".stamp.n");
+    if (sy) sy.style.opacity = 0;
+    if (sn) sn.style.opacity = 0;
+  });
+}
+function syncDeck(){
+  if (drag || M.anim) return;
+  var l = deckList(), n = l.length;
+  if (M.role === "boy" && n) { var p = M.pos % n; l = l.slice(p).concat(l.slice(0, p)); }
+  var want = l.slice(0, 3), keys = want.map(function(i){ return i.ig; });
+  cards = cards.filter(function(c){
+    var ig = c.getAttribute("data-ig"), k = keys.indexOf(ig);
+    if (k < 0 || want[k].photo !== c.getAttribute("data-photo")) { c.remove(); return false; }
+    return true;
+  });
+  want.forEach(function(it){
+    var have = cards.some(function(c){ return c.getAttribute("data-ig") === it.ig; });
+    if (!have) { var c = cardEl(it); deckEl.appendChild(c); cards.push(c); }
+  });
+  cards.sort(function(a, b){ return keys.indexOf(a.getAttribute("data-ig")) - keys.indexOf(b.getAttribute("data-ig")); });
+  layout();
+  /* warm the cache for the next photo */
+  if (l[3] && l[3].photo) { var pre = new Image(); pre.src = "https://lh3.googleusercontent.com/d/" + l[3].photo + "=w720"; }
+  dcount.textContent = !n ? "" : M.role === "girl" ? n + (n === 1 ? " boy to go" : " boys to go") : (M.pos % n + 1) + " of " + n;
+}
+function setPose(c, dx, dy){
+  c.style.transform = "translate(" + dx + "px," + dy + "px) rotate(" + (dx * 0.05) + "deg)";
+  var k = Math.min(1, Math.abs(dx) / 110), sy = c.querySelector(".stamp.y"), sn = c.querySelector(".stamp.n");
+  if (sy) sy.style.opacity = dx > 0 ? k : 0;
+  if (sn) sn.style.opacity = dx < 0 ? k : 0;
+  var nx = cards[1];
+  if (nx) nx.style.transform = "translateY(" + (14 - 14 * k) + "px) scale(" + (0.95 + 0.05 * k) + ")";
+}
+function fling(dir){
+  var c = cards[0];
+  if (!c || M.anim) return;
+  if (M.role === "boy" && deckList().length < 2) { layout(); return; }
+  M.anim = true;
+  c.classList.remove("drag");
+  var sy = c.querySelector(".stamp.y"), sn = c.querySelector(".stamp.n");
+  if (sy) sy.style.opacity = dir > 0 ? 1 : 0;
+  if (sn) sn.style.opacity = dir < 0 ? 1 : 0;
+  c.style.transition = "transform .4s cubic-bezier(.3,.7,.4,1),opacity .4s";
+  c.style.transform = "translate(" + (dir * Math.max(window.innerWidth, 500)) + "px,-30px) rotate(" + (dir * 24) + "deg)";
+  c.style.opacity = "0";
+  setTimeout(function(){
+    var ig = c.getAttribute("data-ig");
+    c.remove(); cards.shift();
+    M.anim = false;
+    if (M.role === "girl") decide(ig, dir > 0 ? "yes" : "no");
+    else { M.pos++; render(); }
+  }, 340);
+}
+deckEl.addEventListener("pointerdown", function(e){
+  var c = cards[0];
+  if (!c || M.anim || drag || e.button > 0 || e.target.closest("a") || !c.contains(e.target)) return;
+  drag = { x: e.clientX, y: e.clientY, dx: 0, t: Date.now(), id: e.pointerId, c: c };
+  c.classList.add("drag");
+  try { c.setPointerCapture(e.pointerId); } catch (x) {}
+});
+deckEl.addEventListener("pointermove", function(e){
+  if (!drag || e.pointerId !== drag.id) return;
+  drag.dx = e.clientX - drag.x;
+  setPose(drag.c, drag.dx, (e.clientY - drag.y) * 0.25);
+});
+function endDrag(e, cancel){
+  if (!drag || e.pointerId !== drag.id) return;
+  var d = drag; drag = null;
+  d.c.classList.remove("drag");
+  var w = deckEl.offsetWidth, v = Math.abs(d.dx) / Math.max(1, Date.now() - d.t);
+  if (!cancel && (Math.abs(d.dx) > w * 0.28 || (v > 0.6 && Math.abs(d.dx) > 40))) fling(d.dx > 0 ? 1 : -1);
+  else layout();
+}
+deckEl.addEventListener("pointerup", function(e){ endDrag(e, false); });
+deckEl.addEventListener("pointercancel", function(e){ endDrag(e, true); });
+deckEl.addEventListener("keydown", function(e){
+  if (e.key === "ArrowRight") { e.preventDefault(); fling(1); }
+  else if (e.key === "ArrowLeft") { e.preventDefault(); fling(M.role === "girl" ? -1 : 1); }
+});
+$("#dyes").addEventListener("click", function(){ fling(1); });
+$("#dno").addEventListener("click", function(){ fling(-1); });
+$("#dnext").addEventListener("click", function(){ fling(1); });
+
+/* A girl's yes or no. The card leaves at once; if saving fails it comes back. */
+function decide(ig, choice){
+  var it = findItem(ig);
+  if (!it || M.busy[ig]) { render(); return; }
+  M.busy[ig] = true; M.busyN++;
+  var prev = it.status, idx = M.items.indexOf(it);
+  if (choice === "yes") it.status = "yes"; else M.items.splice(idx, 1);
+  render(); setMsg("");
+  callApi({ action: "decide", id: M.id, pin: M.pin, match: ig, choice: choice }).then(function(r){
+    if (r && r.ok) {
+      setMsg(choice === "yes" ? "Saved. He can now see you when he enters his Instagram ID." : "Saved. He is removed from your list.");
+    } else if (r && (r.error === "closed" || r.error === "not_found")) {
+      M.items = M.items.filter(function(i){ return i.ig !== ig; });
+      setMsg("That match is no longer available."); render();
+    } else throw new Error("bad");
+  }).catch(function(){
+    if (choice === "yes") it.status = prev; else if (M.items.indexOf(it) < 0) M.items.splice(Math.min(idx, M.items.length), 0, it);
+    render(); setMsg("Could not save that. Check your connection and try again.");
+  }).then(function(){ delete M.busy[ig]; M.busyN--; });
+}
+
+/* ---- Photo gate for people who have no photo yet ---- */
+var gPhoto = "", gErr = $("#e-g");
+function setGErr(t){ gErr.textContent = t || ""; gErr.hidden = !t; }
+bindPicker($("#g-photo"), $("#g-thumb"), function(d){ gPhoto = d; setGErr(""); }, function(m){ gPhoto = ""; setGErr(m); });
+$("#gbtn").addEventListener("click", function(){
+  var b = this;
+  if (!gPhoto) { setGErr("Choose a photo first."); return; }
+  b.disabled = true; b.textContent = "Uploading…"; setGErr("");
+  sendPhoto(M.id, M.pin, gPhoto).then(function(r){
+    if (r && r.ok) {
+      M.me = "pending"; gPhoto = ""; resetPicker($("#g-photo"), $("#g-thumb"));
+      render(); setMsg("Photo sent. We will approve it soon.");
+    } else {
+      var e = r && r.error;
+      setGErr(e === "too_big" ? "That photo is too large. Try another." : e === "locked" ? "Too many tries. Try again in 15 minutes." : "Could not upload that photo. Try again.");
+    }
+  }).catch(function(){
+    setGErr("Could not upload. Check your connection and try again.");
+  }).then(function(){ b.disabled = false; b.textContent = "Upload photo"; });
+});
+
 function render(){
-  var sig = M.role + "|" + M.items.map(function(i){ return i.ig + ":" + i.status; }).join(",");
-  if (sig !== M.sig) {
-    M.sig = sig;
-    mTiles.textContent = "";
-    M.items.forEach(function(it){ mTiles.appendChild(tileEl(it)); });
-  }
+  var girl = M.role === "girl", boy = M.role === "boy", ready = girl || boy;
+  var gated = ready && (M.me === "none" || M.me === "rejected") && !M.upl;
   mWho.textContent = "Matches for @" + M.id;
-  var girl = M.role === "girl", boy = M.role === "boy";
-  mNote.textContent = girl ? "Every boy who signed up shows here. Say yes or no to each. A no removes him. A yes shows your Instagram ID to him."
-    : boy ? "These girls said yes to you. Tap an Instagram ID to message them." : "";
-  var none = !M.items.length;
-  mEmpty.hidden = !none;
-  mEmpty.textContent = !none ? "" : girl ? "No boys to show right now. New sign-ups appear here on their own."
+
+  gate.hidden = !gated;
+  mBody.hidden = gated;
+  if (gated) {
+    $("#gtitle").textContent = M.me === "rejected" ? "Please add a different photo." : "Add your photo to continue.";
+    $("#gtext").textContent = M.me === "rejected"
+      ? "We could not approve your last photo. Add a clear photo of just you, face visible."
+      : "Add a clear photo of yourself. We check every photo before anyone sees it.";
+    return;
+  }
+
+  mNote.textContent = girl ? "Swipe right for yes, left for no. A yes shows your Instagram ID and photo to him. A no removes him."
+    : boy ? "These girls said yes to you. Swipe through, or tap an Instagram ID to message them." : "";
+  pnote.hidden = !(ready && M.me === "pending");
+
+  var list = deckList(), n = list.length;
+  deckWrap.hidden = !n;
+  $("#dno").hidden = !girl; $("#dyes").hidden = !girl; $("#dnext").hidden = !boy || n < 2;
+  if (n) syncDeck(); else { cards.forEach(function(c){ c.remove(); }); cards = []; }
+
+  mEmpty.hidden = n > 0;
+  mEmpty.textContent = n ? "" : girl ? "No more boys to show right now. New sign-ups appear here on their own."
     : boy ? "No one has said yes yet. When a girl says yes to you, she shows up here."
     : "Nothing here yet. Check that this is the Instagram ID you signed up with.";
+
+  var ys = girl ? M.items.filter(function(i){ return i.status === "yes"; }) : [];
+  var tsig = ys.map(function(i){ return i.ig; }).join(",");
+  if (tsig !== M.tsig) {
+    M.tsig = tsig;
+    mTiles.textContent = "";
+    ys.forEach(function(it){ mTiles.appendChild(tileEl(it)); });
+  }
+  yeslb.hidden = !ys.length;
 }
 
 function clean(x){
   var ig = String(x && x.ig || "").replace(/^@+/, "").toLowerCase();
   if (!ig) return null;
+  var ph = String(x.photo || "");
   return {
     ig: ig, status: x.status === "yes" ? "yes" : "pending",
     name: String(x.name || "").slice(0, 80) || "Someone from DU",
     college: String(x.college || "").slice(0, 90),
-    year: String(x.year || "").slice(0, 20)
+    year: String(x.year || "").slice(0, 20),
+    photo: /^[A-Za-z0-9_-]{10,80}$/.test(ph) ? ph : ""
   };
 }
 
@@ -896,8 +1186,10 @@ function load(id, pin, quiet){
     var switched = M.id !== id;
     M.id = id; M.pin = pin; storePin(pin);
     M.role = r.role === "girl" || r.role === "boy" ? r.role : "none";
+    /* An older backend sends no "me" field: treat everyone as approved so nothing breaks. */
+    M.me = ["none", "pending", "approved", "rejected"].indexOf(r.me) >= 0 ? r.me : "approved";
     M.items = (r.matches || []).map(clean).filter(Boolean);
-    if (switched) M.sig = null;
+    if (switched) { M.tsig = null; M.pos = 0; }
     store(id);
     mf.hidden = true; mView.hidden = false;
     render();
@@ -928,48 +1220,16 @@ mPin.addEventListener("input", function(){ setMErr(""); });
 $("#m-ok").addEventListener("change", function(){ setMErr(""); });
 
 $("#mswitch").addEventListener("click", function(){
-  M.id = ""; M.pin = ""; M.role = ""; M.items = []; M.sig = null;
+  M.id = ""; M.pin = ""; M.role = ""; M.me = ""; M.items = []; M.tsig = null; M.pos = 0; M.upl = false;
   store(""); storePin("");
+  cards.forEach(function(c){ c.remove(); }); cards = [];
   mTiles.textContent = ""; mIg.value = ""; mPin.value = ""; setMsg(""); setMErr("");
   mView.hidden = true; mf.hidden = false;
   mIg.focus();
 });
 
-mTiles.addEventListener("click", function(ev){
-  var b = ev.target.closest ? ev.target.closest("button[data-act]") : null;
-  if (!b) return;
-  var tile = b.closest(".tile"), ig = tile.getAttribute("data-ig"), choice = b.getAttribute("data-act");
-  if (M.busy[ig]) return;
-  M.busy[ig] = true; M.busyN++;
-  Array.prototype.forEach.call(tile.querySelectorAll("button"), function(x){ x.disabled = true; });
-  b.textContent = "Saving…";
-  setMsg("");
-  function release(){ delete M.busy[ig]; M.busyN--; }
-  callApi({ action: "decide", id: M.id, pin: M.pin, match: ig, choice: choice }).then(function(r){
-    release();
-    if (r && r.ok) {
-      if (choice === "yes") {
-        var it = findItem(ig);
-        if (it) it.status = "yes";
-        M.sig = null; render();
-        setMsg("Saved. He can now see you when he enters his Instagram ID.");
-      } else {
-        drop(ig);
-        setMsg("Saved. He is removed from your list.");
-      }
-    } else if (r && (r.error === "closed" || r.error === "not_found")) {
-      drop(ig);
-      setMsg("That match is no longer available.");
-    } else throw new Error("bad");
-  }).catch(function(){
-    release();
-    M.sig = null; render();
-    setMsg("Could not save that. Check your connection and try again.");
-  });
-});
-
-/* Auto refresh: every 10 s, plus on tab focus, visibility and reconnect. */
-function refresh(){ if (M.id && !M.busyN && !document.hidden) load(M.id, M.pin, true); }
+/* Auto refresh: every 10 s, plus on tab focus, visibility and reconnect. Paused while a card is moving. */
+function refresh(){ if (M.id && !M.busyN && !M.anim && !drag && !document.hidden) load(M.id, M.pin, true); }
 setInterval(refresh, 10000);
 document.addEventListener("visibilitychange", refresh);
 window.addEventListener("focus", refresh);
