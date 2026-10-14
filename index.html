@@ -174,7 +174,9 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .gate{display:grid;gap:14px;justify-items:start}
 .gate h3{font:400 clamp(1.5rem,3.4vw,2rem)/1.15 var(--display);text-wrap:balance}
 .gate>p:not(.lb):not(.er){color:var(--mute);max-width:32em}
-.gate .btn{margin-top:4px}
+.gate{margin-block:18px 6px}
+.gate .gacts{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.gate .gacts .btn[hidden]{display:none}
 
 /* matches */
 .mlede{margin-top:18px;color:var(--mute);max-width:34em}
@@ -444,7 +446,7 @@ footer b{color:var(--fg)}
           <p id="gtext">Add a clear photo of yourself. We check every photo before anyone sees it.</p>
           <div class="pf"><input id="g-photo" type="file" accept="image/*" aria-label="Choose your photo"><div class="pthumb" id="g-thumb" aria-hidden="true">+</div><label class="btn ghost sm" for="g-photo">Choose photo</label></div>
           <p class="er" id="e-g" role="alert" hidden></p>
-          <button type="button" class="btn" id="gbtn">Upload photo</button>
+          <div class="gacts"><button type="button" class="btn" id="gbtn">Upload photo</button><button type="button" class="btn ghost" id="gskip" hidden>Not now</button></div>
         </div>
 
         <div id="mbody">
@@ -879,7 +881,7 @@ $("#f-ok").addEventListener("change", function(){ setErr("ok", ""); });
 var mf = $("#mf"), mIg = $("#m-ig"), mPin = $("#m-pin"), mBtn = $("#mbtn"), mView = $("#mview"), mTiles = $("#tiles");
 var mEmpty = $("#mempty"), mNote = $("#mnote"), mWho = $("#mwho"), mMsg = $("#mmsg"), mErr = $("#e-m-ig");
 var deckEl = $("#deck"), deckWrap = $("#deckwrap"), dcount = $("#dcount"), gate = $("#gate"), pnote = $("#pnote"), yeslb = $("#yeslb"), mBody = $("#mbody");
-var M = { id: "", pin: "", role: "", me: "", items: [], tsig: null, pos: 0, loading: false, busy: {}, busyN: 0, anim: false, upl: false };
+var M = { id: "", pin: "", role: "", me: "", items: [], tsig: null, pos: 0, loading: false, busy: {}, busyN: 0, anim: false, upl: false, skip: false };
 var IG_RE = /^[A-Za-z0-9._]{1,30}$/;
 
 /* Demo data, used only while MATCH_API is empty. */
@@ -1108,6 +1110,7 @@ function decide(ig, choice){
 var gPhoto = "", gErr = $("#e-g");
 function setGErr(t){ gErr.textContent = t || ""; gErr.hidden = !t; }
 bindPicker($("#g-photo"), $("#g-thumb"), function(d){ gPhoto = d; setGErr(""); }, function(m){ gPhoto = ""; setGErr(m); });
+$("#gskip").addEventListener("click", function(){ M.skip = true; render(); });
 $("#gbtn").addEventListener("click", function(){
   var b = this;
   if (!gPhoto) { setGErr("Choose a photo first."); return; }
@@ -1127,18 +1130,24 @@ $("#gbtn").addEventListener("click", function(){
 
 function render(){
   var girl = M.role === "girl", boy = M.role === "boy", ready = girl || boy;
-  var gated = ready && (M.me === "none" || M.me === "rejected") && !M.upl;
+  var lacks = ready && (M.me === "none" || M.me === "rejected") && !M.upl;
+  /* Boys must add a photo before they see anything. Girls can swipe straight away:
+     they just get a prompt above the deck that they can set aside. */
+  var gated = lacks && boy;
+  var nudge = lacks && girl && !M.skip;
   mWho.textContent = "Matches for @" + M.id;
 
-  gate.hidden = !gated;
+  gate.hidden = !(gated || nudge);
   mBody.hidden = gated;
-  if (gated) {
-    $("#gtitle").textContent = M.me === "rejected" ? "Please add a different photo." : "Add your photo to continue.";
+  $("#gskip").hidden = !nudge;
+  if (gated || nudge) {
+    $("#gtitle").textContent = M.me === "rejected" ? "Please add a different photo." : gated ? "Add your photo to continue." : "Add your photo.";
     $("#gtext").textContent = M.me === "rejected"
-      ? "We could not approve your last photo. Add a clear photo of just you, face visible."
-      : "Add a clear photo of yourself. We check every photo before anyone sees it.";
-    return;
+      ? "We could not approve your last photo. Add a clear photo of just you, face visible." + (nudge ? " You can keep swiping meanwhile." : "")
+      : gated ? "Add a clear photo of yourself. We check every photo before anyone sees it."
+      : "You can keep swiping. A boy sees you once your photo is added and approved.";
   }
+  if (gated) return;
 
   mNote.textContent = girl ? "Swipe right for yes, left for no. A yes shows your Instagram ID and photo to him. A no removes him."
     : boy ? "These girls said yes to you. Swipe through, or tap an Instagram ID to message them." : "";
@@ -1220,7 +1229,7 @@ mPin.addEventListener("input", function(){ setMErr(""); });
 $("#m-ok").addEventListener("change", function(){ setMErr(""); });
 
 $("#mswitch").addEventListener("click", function(){
-  M.id = ""; M.pin = ""; M.role = ""; M.me = ""; M.items = []; M.tsig = null; M.pos = 0; M.upl = false;
+  M.id = ""; M.pin = ""; M.role = ""; M.me = ""; M.items = []; M.tsig = null; M.pos = 0; M.upl = false; M.skip = false;
   store(""); storePin("");
   cards.forEach(function(c){ c.remove(); }); cards = [];
   mTiles.textContent = ""; mIg.value = ""; mPin.value = ""; setMsg(""); setMErr("");
